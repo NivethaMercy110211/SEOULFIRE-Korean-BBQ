@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#131211">
+<title>Guest Login — SEOULFIRE Korean BBQ</title>
+<meta name="description" content="Your table, one tap away. Log in to My Table at SEOULFIRE Korean BBQ.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/dark-theme.css">
+<link rel="stylesheet" href="css/rtl.css">
+<link rel="stylesheet" href="css/tablet.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body class="auth-page">
+<main class="auth" id="main">
+
+  <!-- unique visual: moody table set before guests arrive -->
+  <div class="auth-visual">
+    <img src="assets/images/auth/login.jpg" alt="A moody Korean BBQ table after setup — glowing grill and ceramic banchan waiting">
+    <span class="auth-badge">My Table · Guest access</span>
+    <div class="auth-quote">
+      <p>"The table is set. The coals are yours."</p>
+      <span>My Table keeps your reservations, favorites and Grill Club points in one place.</span>
+    </div>
+  </div>
+
+  <div class="auth-main">
+    <div class="auth-brand-row" style="margin-top:-30px">
+      <span class="auth-kicker">Grill. Share. Seoul.</span>
+    </div>
+    <h1>Your Table,<br>One Tap Away.</h1>
+    <p class="auth-sub">Log in to manage reservations, rewards and your favorite cuts.</p>
+
+    <form data-validate data-redirect="dashboard.html" data-success="Welcome back. Lighting your table…">
+      <div class="field" style="margin-bottom:16px">
+        <label for="lEmail">Email</label>
+        <input id="lEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div class="field" style="margin-bottom:10px">
+        <label for="lPass">Password</label>
+        <div class="password-field">
+          <input id="lPass" type="password" required autocomplete="current-password" placeholder="••••••••">
+          <button class="password-toggle" type="button" data-password-toggle="lPass" aria-label="Show password" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 18px">
+        <label class="check-row" style="padding:0"><input type="checkbox"> Keep me signed in</label>
+        <a class="link-plain" href="forgot.html" style="font-size:13.5px">Forgot password?</a>
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" type="submit">Log in to My Table</button>
+    </form>
+
+    <div class="social-auth">
+      <div class="divider">or continue with</div>
+      <button class="soc-btn" type="button" onclick="toast('Demo only — connect your auth provider.')">
+        <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12 11v3.6h5.1a4.4 4.4 0 0 1-1.9 2.9v2.4h3.1c1.8-1.7 2.9-4.2 2.9-7.1 0-.7-.1-1.3-.2-1.8z"/><path fill="#34A853" d="M12 21c2.6 0 4.8-.9 6.3-2.3l-3.1-2.4c-.8.6-1.9 1-3.2 1a5.6 5.6 0 0 1-5.3-3.9H3.5v2.5A9 9 0 0 0 12 21z"/><path fill="#FBBC05" d="M6.7 13.4a5.7 5.7 0 0 1 0-3.6V7.3H3.5a9 9 0 0 0 0 8.2z"/><path fill="#4285F4" d="M12 6.6c1.3 0 2.5.5 3.4 1.3L18 5.3A9 9 0 0 0 3.5 7.3l3.2 2.5A5.6 5.6 0 0 1 12 6.6z"/></svg>
+        Continue with Google
+      </button>
+      <button class="soc-btn" type="button" onclick="toast('Demo only — connect your auth provider.')">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.54c0-2.4 1.96-3.55 2.05-3.6a4.54 4.54 0 0 0-3.58-1.94c-1.5-.15-2.96.9-3.73.9-.77 0-1.95-.88-3.22-.85A4.77 4.77 0 0 0 4.5 9.6c-1.72 2.98-.44 7.4 1.24 9.82.82 1.18 1.8 2.5 3.09 2.45 1.24-.05 1.7-.8 3.2-.8 1.48 0 1.9.8 3.2.78 1.32-.02 2.16-1.2 2.97-2.4a10.4 10.4 0 0 0 1.34-2.77 4.4 4.4 0 0 1-2.45-4.14zM14.6 5.36A4.4 4.4 0 0 0 15.6 2a4.5 4.5 0 0 0-2.9 1.52 4.2 4.2 0 0 0-1.05 3.26 3.9 3.9 0 0 0 2.95-1.42z"/></svg>
+        Continue with Apple
+      </button>
+    </div>
+
+    <p class="auth-foot">New here? <a href="register.html">Join the Table</a> — it takes a minute.</p>
+
+    <div class="demo-hint">Demo shortcut: any email and password opens the <b>My Table</b> demo.</div>
+  </div>
+</main>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

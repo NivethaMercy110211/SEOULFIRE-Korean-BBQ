@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1E1D1B">
+  <title>A Night in Seoul — SEOULFIRE Korean BBQ</title>
+  <meta name="description"
+    content="Seoul After Dark, served at your table. An evening journey through fire, cuts and shared plates.">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/buttons.css">
+  <link rel="stylesheet" href="css/editorial.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/dark-theme.css">
+  <link rel="stylesheet" href="css/rtl.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/tablet.css">
+  <link rel="stylesheet" href="css/mobile.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" style="background-image:url('assets/images/hero/home2.png')">
+      <div class="container">
+        <div class="hero-content">
+          <span class="eyebrow">A night in Seoul</span>
+          <h1 class="hero-title-long"><span>Seoul After Dark,</span><span>Served at Your</span><span>Table.</span></h1>
+          <p>Glowing tabletop grills, warm pendant light and the low hum of a dining room that eats late.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary btn-lg" href="reservations.html">Book Tonight</a>
+            <a class="btn btn-outline-light btn-lg" href="experience.html">Discover the Experience</a>
+          </div>
+          <form class="reserve-bar" action="reservations.html" method="get" aria-label="Quick reservation">
+            <label>Date<input type="date" name="date"></label>
+            <label>Time<select name="time">
+                <option>8:00 PM</option>
+                <option>8:30 PM</option>
+                <option>9:00 PM</option>
+                <option>9:30 PM</option>
+                <option>10:00 PM</option>
+              </select></label>
+            <label>Guests<select name="party">
+                <option>2 guests</option>
+                <option>4 guests</option>
+                <option>6 guests</option>
+                <option>8 guests</option>
+              </select></label>
+            <button class="btn btn-primary" type="submit">Find a Table</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE EVENING JOURNEY ============ -->
+    <section class="section-alt" id="journey">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">The evening journey</span>
+            <h2>How a SeoulFire<br>night unfolds.</h2>
+          </div>
+          <p>One arc from the door to the last wrap — the room does most of the talking.</p>
+        </div>
+        <div class="journey-controls reveal" aria-label="Journey carousel controls">
+          <button class="journey-btn" id="journeyPrev" type="button" aria-label="Show previous journey step">← Back</button>
+          <button class="journey-btn" id="journeyNext" type="button" aria-label="Show next journey step">Next →</button>
+        </div>
+        <div class="rail journey-rail reveal" id="journeyRail">
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/journey-arrive.jpg" alt="Arrival at the entrance"
+                loading="lazy"><span class="badge">01 · Arrive</span></div>
+            <div class="card-body">
+              <h3>Arrive</h3>
+              <p>Blue-hour storefront, host stand, first look at the fire line.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/journey-order.jpg" alt="Ordering among banchan"
+                loading="lazy"><span class="badge">02 · Order</span></div>
+            <div class="card-body">
+              <h3>Order</h3>
+              <p>Cuts chosen with your server; banchan lands first.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/journey-fire.jpg" alt="Lighting the grill"
+                loading="lazy"><span class="badge">03 · Fire up</span></div>
+            <div class="card-body">
+              <h3>Fire Up the Grill</h3>
+              <p>Coals settle, grates heat, the table gets its center.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/journey-build.jpg" alt="Building a ssam"
+                loading="lazy"><span class="badge">04 · Build</span></div>
+            <div class="card-body">
+              <h3>Build Your Ssam</h3>
+              <p>Leaf, rice, dip, meat — one confident bite.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/journey-share.jpg" alt="Sharing banchan"
+                loading="lazy"><span class="badge">05 · Share</span></div>
+            <div class="card-body">
+              <h3>Share Banchan</h3>
+              <p>Refills circle the table all night.</p>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/journey-finish.jpg"
+                alt="Finishing the night with drinks" loading="lazy"><span class="badge">06 · Finish</span></div>
+            <div class="card-body">
+              <h3>Finish the Night</h3>
+              <p>Dessert, one last pour, no rush on the coals.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHEF'S CUT + SET OF THE MONTH ============ -->
+    <section class="editorial">
+      <div class="editorial-media"><img src="assets/images/home2/chefs-cut.jpg" alt="Chef's cut: ribeye roll"
+          loading="lazy"></div>
+      <div class="editorial-copy">
+        <span class="kicker">Chef's cut</span>
+        <h2>Ribeye, seared<br>at your table.</h2>
+        <p>This month the kitchen is talking about the ribeye roll — heavy marbling, forty seconds a side, flaky salt,
+          nothing else. Order it first while the grill is clean.</p>
+        <div class="steps-flow">
+          <span class="step-chip"><b>Cut</b>Ribeye roll</span>
+          <span class="step-chip"><b>Heat</b>High</span>
+          <span class="step-chip"><b>Time</b>40s / side</span>
+        </div>
+        <div style="margin-top:26px"><a class="btn btn-primary" href="menu.html#ribeye">See the cut →</a></div>
+      </div>
+    </section>
+
+    <!-- ============ SET OF THE MONTH + GROUP + LATE NIGHT ============ -->
+    <section>
+      <div class="container">
+        <div class="grid grid-3 reveal">
+          <a class="tile tile-lg" href="menu.html#sets" style="grid-row:span 1">
+            <img src="assets/images/home2/set-month.jpg" alt="BBQ set of the month">
+            <div class="tile-body"><span class="badge badge-gold">Set of the month</span>
+              <h3 style="margin-top:10px">Family Gathering Set</h3>
+              <p>Beef, pork and chicken with double banchan and stew — $148 for 4–5 guests.</p>
+            </div>
+          </a>
+          <a class="tile tile-lg" href="contact.html#groups">
+            <img src="assets/images/home2/group-tile.jpg" alt="Group dining room">
+            <div class="tile-body"><span class="badge">Groups</span>
+              <h3 style="margin-top:10px">Big tables, bigger nights</h3>
+              <p>Group tables and a private room for 8–16, with set menus.</p>
+            </div>
+          </a>
+          <a class="tile tile-lg" href="reservations.html">
+            <img src="assets/images/home2/late-tile.jpg" alt="Late night table">
+            <div class="tile-body"><span class="badge badge-green">Late-night table</span>
+              <h3 style="margin-top:10px">The room eats late</h3>
+              <p>Fri–Sat until 1 AM. Quick cuts, quiet corners, one more round.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SSAM BUILDER TEASER ============ -->
+    <section class="editorial flip">
+      <div class="editorial-media"><img src="assets/images/home2/ssam-teaser.jpg" alt="Ssam in hand over the grill"
+          loading="lazy"></div>
+      <div class="editorial-copy">
+        <span class="kicker">Ssam builder</span>
+        <h2>Leaf. Meat. Dip.<br>One bite.</h2>
+        <p>The wrap is the point. Start with red leaf or perilla, add a spoon of rice, pull your piece off the fire,
+          choose your dip — ssamjang, sesame oil or citrus soy — and commit.</p>
+        <p>Keep it close to the grill, then pass the next leaf around the table.</p>
+        <div style="margin-top:26px"><a class="btn btn-primary" href="experience.html#build">Practice the build →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KOREAN DRINKS ============ -->
+    <section class="section-alt" id="drinks">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Korean drinks</span>
+            <h2>Pours that<br>keep pace.</h2>
+          </div>
+          <p>Cold, clean and built to sit beside smoke — 21+ only.</p>
+        </div>
+        <div class="grid grid-3 reveal">
+          <article class="card">
+            <div class="card-media"><img src="assets/images/pages/Soj_ Flight.png" alt="Three-glass soju flight" loading="lazy">
+            </div>
+            <div class="card-body">
+              <h3>Soju Flight</h3>
+              <p>Three house pours — clean, citron and plum.</p>
+              <div class="card-meta"><span class="price">$21</span><a class="arrow-link" href="menu.html#drinks">View
+                  →</a></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/pages/makgeolli.png" alt="Traditional brass bowl of makgeolli"
+                loading="lazy"></div>
+            <div class="card-body">
+              <h3>Makgeolli</h3>
+              <p>Cloudy rice wine, served cold in a brass bowl.</p>
+              <div class="card-meta"><span class="price">$12</span><a class="arrow-link" href="menu.html#drinks">View
+                  →</a></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media"><img src="assets/images/home2/drink-close.jpg" alt="Naengmyeon noodles"
+                loading="lazy"></div>
+            <div class="card-body">
+              <h3>Naengmyeon</h3>
+              <p>Icy buckwheat noodles to close the grill chapter.</p>
+              <div class="card-meta"><span class="price">$14</span><a class="arrow-link" href="menu.html#rice">View
+                  →</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY STORIES ============ -->
+    <section>
+      <div class="container-wide">
+        <div class="section-head reveal">
+          <div>
+            <span class="kicker">Gallery stories</span>
+            <h2>Scenes from<br>the room.</h2>
+          </div>
+          <a class="arrow-link" href="gallery.html">Full gallery →</a>
+        </div>
+        <div class="gallery-hero-strip reveal">
+          <a class="tile" href="gallery.html"><img src="assets/images/pages/after_9.png"
+              alt="Dining room at night">
+            <div class="tile-body">
+              <h3>The room after 9 PM</h3>
+            </div>
+          </a>
+          <div class="grid" style="gap:16px">
+            <a class="tile" href="gallery.html" style="min-height:182px"><img
+                src="assets/images/home2/story-flame.jpg" alt="Flames on the grill">
+              <div class="tile-body">
+                <h3 style="font-size:18px">Flame study</h3>
+              </div>
+            </a>
+            <a class="tile" href="gallery.html" style="min-height:182px"><img
+                src="assets/images/home2/story-private.jpg" alt="Private dining room">
+              <div class="tile-body">
+                <h3 style="font-size:18px">The private room</h3>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section>
+      <div class="cta"
+        style="margin:40px auto 0;width:min(1320px,calc(100% - 30px));border-radius:30px;padding:90px 7%;color:#fff;position:relative;isolation:isolate;background:url('assets/images/cta/home2-cta.png') center/cover">
+        <div
+          style="position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(19,18,17,.9),rgba(19,18,17,.35))">
+        </div>
+        <span class="kicker" style="color:#FF9A77">Tonight</span>
+        <h2 style="font:800 clamp(2.2rem,5vw,4.4rem)/1 'Manrope';letter-spacing:-.05em;margin:14px 0">The coals are
+          lit.<br>The table is yours.</h2>
+        <p style="max-width:520px;color:#E4D7CA">Book a late table, bring the group, and let the evening take its
+          natural shape.</p>
+        <a class="btn btn-primary btn-lg" href="reservations.html" style="margin-top:26px">Book Tonight →</a>
+      </div>
+    </section>
+
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

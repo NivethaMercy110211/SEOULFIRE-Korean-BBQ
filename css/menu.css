@@ -1,0 +1,79 @@
+/* menu.css — menu discovery, meat specs, banchan explorer */
+.menu-cat-nav {
+  position: static;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+  display: flex; gap: 6px; overflow-x: auto; padding: 12px max(20px, calc((100% - 1180px) / 2));
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.menu-cat-nav::-webkit-scrollbar { display: none; }
+.menu-cat-nav a {
+  flex: none; padding: 9px 16px; border-radius: 99px; font-weight: 600; font-size: 13.5px;
+  color: var(--muted); border: 1px solid var(--line); background: var(--card); transition: .2s;
+}
+.menu-cat-nav a:hover, .menu-cat-nav a.active { background: var(--ember); border-color: var(--ember); color: #fff; }
+body.dark .menu-cat-nav a.active { background: var(--ember); }
+
+/* category tile band under hero */
+.cat-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 0; position: relative; z-index: 5; }
+.cat-band .tile { min-height: 200px; border: 1px solid rgba(255, 255, 255, .14); }
+
+/* menu item card */
+.menu-category-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+.menu-category-grid > .menu-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: calc((100% - 22px) / 2);
+  justify-self: center;
+}
+.menu-card .price-tag { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.menu-card .price-tag .price { font-size: 19px; }
+.menu-card .price-tag .unit { color: var(--muted); font-size: 12px; font-weight: 600; }
+.menu-card .diet-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.menu-category-grid .menu-card .diet-row { display: none; }
+.menu-note { text-align: center; color: var(--muted); font-size: 13.5px; max-width: 560px; margin: 34px auto 0; }
+
+/* meat spec sheet on detail view */
+.meat-spec { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; margin-top: 18px; }
+.meat-spec > div { padding: 16px 18px; border-bottom: 1px solid var(--line-soft); }
+.meat-spec > div:nth-child(odd) { border-right: 1px solid var(--line-soft); }
+.meat-spec > div:nth-last-child(-n+2) { border-bottom: 0; }
+.meat-spec dt { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); font-weight: 800; margin: 0 0 3px; }
+.meat-spec dd { margin: 0; font-weight: 600; font-size: 14.5px; }
+
+/* banchan explorer */
+.bx-wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+.bx-orbit { position: relative; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); }
+.bx-orbit img { width: 100%; display: block; }
+.bx-list { display: grid; gap: 10px; }
+.bx-item {
+  width: 100%; text-align: start; background: var(--card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 16px 18px; cursor: pointer; transition: .2s; display: grid; gap: 4px;
+}
+.bx-item:hover { border-color: var(--ember); }
+.bx-item.active { border-color: var(--ember); background: rgba(216, 90, 50, .07); box-shadow: inset 3px 0 0 var(--ember); }
+[dir=rtl] .bx-item.active { box-shadow: inset -3px 0 0 var(--ember); }
+.bx-item h4 { margin: 0; font-size: 16.5px; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.bx-item h4 span { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+.bx-detail { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 6px; font-size: 12.5px; }
+.bx-detail div b { display: block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.bx-detail div span { font-weight: 600; }
+.bx-detail div:first-child span {
+  display: -webkit-box;
+  min-height: 2.8em;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* menu rail kept for in-menu horizontal strips */
+
+@media (max-width: 640px) {
+  .menu-category-grid { grid-template-columns: 1fr; gap: 18px; }
+  .menu-category-grid > .menu-card:last-child:nth-child(odd) {
+    grid-column: auto;
+    width: 100%;
+  }
+}

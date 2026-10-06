@@ -1,0 +1,173 @@
+/* auth.css — login / register / forgot polish */
+body.auth-page { --auth-content-top: clamp(72px, 12vh, 108px); }
+.auth-main {
+  justify-content: safe center;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 72px;
+  text-align: center;
+}
+.auth-main .auth-sub, .auth-main .auth-foot { text-align: center; }
+.auth-main form { width: min(100%, 460px); text-align: left; }
+.auth-main .auth-alt { justify-content: center; }
+
+@media (min-width: 641px) {
+  .auth { height: 100vh; overflow: hidden; }
+  .auth-main { height: 100vh; overflow-y: auto; }
+  .auth-visual { height: 100vh; }
+}
+@media (min-width: 769px) {
+  .auth {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .auth-visual {
+    display: block;
+    position: relative;
+    height: 100vh;
+  }
+  .auth-main {
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
+.auth-controls {
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  direction: ltr;
+}
+.auth-controls .auth-theme-btn,
+.auth-controls .lang-pill {
+  position: static;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  box-shadow: 0 4px 16px rgba(30, 29, 27, .08);
+  transition: all .2s ease;
+}
+.auth-controls .auth-theme-btn:hover,
+.auth-controls .lang-pill:hover {
+  background: var(--bg);
+  border-color: var(--ember);
+  color: var(--ember);
+}
+.auth-controls .lang-pill.active {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: #FFFFFF;
+}
+.auth-form-brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.auth-form-brand .brand {
+  justify-content: center;
+  color: var(--ink);
+  text-decoration: none;
+}
+.auth-form-brand .brand small {
+  color: var(--muted);
+  opacity: .85;
+}
+.auth-form-brand .brand-mark { width: 48px; height: 48px; }
+.auth-form-brand .brand-text { font-size: 19px; }
+.auth-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 6px !important;
+  text-align: center;
+}
+.auth-kicker { font-size: 11px; letter-spacing: .26em; text-transform: uppercase; font-weight: 800; color: var(--ember); }
+
+.auth-visual .auth-badge {
+  position: absolute; top: var(--auth-content-top); left: 48px; z-index: 2;
+  display: inline-flex; align-items: center;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 154, 119, .42);
+  border-radius: 999px;
+  background: rgba(12, 11, 10, .72);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .38);
+  backdrop-filter: blur(6px);
+  font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-weight: 800; color: #FFD5C3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .9);
+}
+.auth-visual .auth-badge::before { content: ''; display: inline-block; width: 26px; height: 1.5px; background: var(--ember); vertical-align: middle; margin-inline-end: 10px; }
+
+.check-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  color: var(--muted);
+  cursor: pointer;
+  line-height: 1.45;
+  user-select: none;
+}
+.check-row input {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  accent-color: var(--ember);
+  flex: none;
+  cursor: pointer;
+}
+.check-row b { color: var(--ink); }
+.check-row-consent { white-space: nowrap; }
+
+.demo-hint {
+  margin-top: 22px; padding: 12px 16px; border: 1px dashed var(--line); border-radius: 12px;
+  font-size: 12.5px; color: var(--muted); background: rgba(216, 90, 50, .05);
+}
+.demo-hint b { color: var(--ink); }
+
+.auth-main .btn-block { margin-top: 6px; }
+.auth-alt { display: flex; gap: 8px; flex-wrap: wrap; }
+.password-field { position: relative; }
+.password-field input { padding-right: 50px !important; }
+.password-toggle {
+  position: absolute; top: 50%; right: 10px; transform: translateY(-50%);
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer;
+  transition: color .2s, background-color .2s;
+}
+.password-toggle:hover, .password-toggle.is-visible { color: var(--ember); background: rgba(216, 90, 50, .10); }
+.password-toggle svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+[dir=rtl] .password-field input { padding-right: 14px !important; padding-left: 50px !important; }
+[dir=rtl] .password-toggle { right: auto; left: 10px; }
+
+/* forgot password success state */
+.forgot-done { text-align: center; padding: 30px 0; }
+.forgot-done .confirm-hero-icon { margin-bottom: 18px; color: var(--ember); }
+.forgot-done h2 { color: var(--ink); }
+.forgot-done p { color: var(--muted); }
+.forgot-done .btn-outline,
+.forgot-done .btn-outline-light {
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  background: var(--card);
+}
+.forgot-done .btn-outline:hover,
+.forgot-done .btn-outline-light:hover {
+  border-color: var(--ember);
+  color: var(--ember);
+  background: rgba(216, 90, 50, .06);
+}
+
+.name-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+@media (max-width: 640px) {
+  .name-grid { grid-template-columns: 1fr !important; }
+  .auth-controls { position: absolute; top: 294px; right: 14px; gap: 8px; }
+  .auth-form-brand { margin-bottom: 18px; }
+  .auth-form-brand .brand small { display: block; }
+}

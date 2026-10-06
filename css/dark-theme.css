@@ -1,0 +1,481 @@
+/* ==========================================================================
+   SEOULFIRE Korean BBQ — dark-theme.css
+   Architectural dark-mode system with rich, distinct section differentiation,
+   layered elevations, atmospheric backlights, and crisp boundary hairlines.
+   ========================================================================== */
+
+/* ---------------- Canvas & Surface Tokens ---------------- */
+body.dark {
+  background: #11100F;
+  --bg: #11100F;
+  --surface: #1D1A17;
+  --card: #1C1916;
+  --ink: #FFF7EC;
+  --muted: #D3C8BD;
+  --line: #3D362F;
+  --line-soft: #302A24;
+}
+
+/* ---------------- Section Hierarchy & Transitions ---------------- */
+/* Base section transition */
+body.dark section {
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+
+/* Consecutive plain sections get a clean, subtle architectural hairline */
+body.dark section + section:not(.section-alt):not(.editorial):not(.section-highlight):not(.section-dark):not(.hero):not(.page-hero):not(.section-band):not(.gallery-cta-section) {
+  border-top: 1px solid rgba(255, 247, 236, .08);
+}
+
+/* Subtle separator utility */
+body.dark .section-sep {
+  background: linear-gradient(90deg, transparent 5%, rgba(216, 90, 50, .35) 50%, transparent 95%);
+  opacity: 1;
+}
+
+/* ---------------- 1. Alternate Surface Sections (.section-alt) ---------------- */
+/* Distinct warm stone-slate elevation with crisp hairlines & ambient top glow */
+body.dark .section-alt {
+  background-color: #1D1A17;
+  background-image: radial-gradient(1100px 480px at 50% 0%, rgba(216, 90, 50, .05), transparent 75%);
+  border-top: 1px solid rgba(255, 247, 236, .10);
+  border-bottom: 1px solid rgba(255, 247, 236, .10);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04), inset 0 -1px 0 rgba(0, 0, 0, .5);
+}
+
+/* Cards & panels inside .section-alt get higher surface tier with rich depth */
+body.dark .section-alt .card,
+body.dark .section-alt .panel {
+  background: #26221E;
+  border-color: #453E37;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .45);
+}
+
+body.dark .section-alt a.card:hover {
+  border-color: rgba(255, 138, 97, .55);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .65), 0 0 24px rgba(216, 90, 50, .20);
+  transform: translateY(-6px);
+}
+
+/* Alternate section kicker pill */
+body.dark .section-alt .kicker {
+  background: rgba(216, 90, 50, .20);
+  color: #FF9A77;
+  border: 1px solid rgba(216, 90, 50, .35);
+}
+
+/* ---------------- 2. Editorial Storytelling Sections (.editorial) ---------------- */
+/* Deepest midnight obsidian chamber with warm wood-fire flame backlights */
+body.dark .editorial {
+  background-color: #0A0908;
+  background-image: radial-gradient(circle at 85% 35%, rgba(216, 90, 50, .20), transparent 55%),
+                    radial-gradient(circle at 15% 85%, rgba(255, 138, 97, .07), transparent 50%);
+  border-top: 1px solid rgba(216, 90, 50, .32);
+  border-bottom: 1px solid rgba(216, 90, 50, .32);
+  box-shadow: inset 0 24px 44px -20px rgba(216, 90, 50, .14), inset 0 -24px 44px -20px rgba(0, 0, 0, .9);
+}
+
+body.dark .editorial.flip {
+  background-image: radial-gradient(circle at 15% 35%, rgba(216, 90, 50, .20), transparent 55%),
+                    radial-gradient(circle at 85% 85%, rgba(255, 138, 97, .07), transparent 50%);
+}
+
+body.dark .editorial-copy .kicker {
+  color: #FF8A61;
+}
+
+body.dark .editorial-copy p {
+  color: #D6CABB;
+}
+
+body.dark .editorial-media {
+  border-left: 1px solid rgba(255, 255, 255, .08);
+}
+
+body.dark .editorial.flip .editorial-media {
+  border-left: none;
+  border-right: 1px solid rgba(255, 255, 255, .08);
+}
+
+body.dark .editorial-badge .badge {
+  background: rgba(14, 13, 12, .92);
+  border: 1px solid rgba(216, 90, 50, .40);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .7);
+}
+
+/* ---------------- 3. Feature Highlight Sections (.section-highlight) ---------------- */
+/* Glowing ember sanctuary wash with fiery framing hairlines */
+body.dark .section-highlight {
+  background: linear-gradient(180deg, #151310 0%, #221813 50%, #151310 100%);
+  border-top: 1px solid rgba(216, 90, 50, .36);
+  border-bottom: 1px solid rgba(216, 90, 50, .36);
+  box-shadow: inset 0 24px 50px -18px rgba(216, 90, 50, .16), inset 0 -24px 50px -18px rgba(216, 90, 50, .16);
+}
+
+body.dark .section-highlight::before {
+  background: radial-gradient(900px 450px at 50% 50%, rgba(216, 90, 50, .22), rgba(255, 138, 97, .06) 50%, transparent 80%);
+}
+
+body.dark .section-highlight .kicker {
+  background: rgba(216, 90, 50, .25);
+  color: #FFAB8E;
+  border: 1px solid rgba(216, 90, 50, .45);
+}
+
+/* Highlight section cards, panels & components */
+body.dark .section-highlight .panel,
+body.dark .section-highlight .card {
+  background: #251D17;
+  border-color: rgba(216, 90, 50, .30);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .5);
+}
+
+/* FAQ accordions inside .section-highlight */
+body.dark .section-highlight .faq-item {
+  background: #241D17;
+  border-color: rgba(216, 90, 50, .30);
+  transition: all .2s ease;
+}
+
+body.dark .section-highlight .faq-item:hover {
+  border-color: rgba(216, 90, 50, .48);
+}
+
+body.dark .section-highlight .faq-item[open] {
+  background: #2B211A;
+  border-color: rgba(216, 90, 50, .55);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+}
+
+body.dark .section-highlight .faq-item summary {
+  color: #FFF7EC;
+}
+
+/* Banchan orbit card on menu page */
+body.dark .bx-card {
+  background: #261E18;
+  border-color: rgba(216, 90, 50, .32);
+}
+
+/* ---------------- 4. Atmosphere, Strips & Specialty Sections ---------------- */
+/* Category band shelf on menu page */
+body.dark .section-band {
+  background: #171513;
+  border-top: 1px solid rgba(255, 247, 236, .08);
+  border-bottom: 1px solid rgba(255, 247, 236, .08);
+}
+
+/* Gallery CTA section */
+body.dark .gallery-cta-section {
+  background: #1D1A17;
+  border-top: 1px solid rgba(255, 247, 236, .10);
+  box-shadow: inset 0 24px 60px rgba(0, 0, 0, .25);
+}
+
+/* Dedicated dark atmospheric section */
+body.dark .section-dark {
+  background: #0E0D0C;
+  border-top: 1px solid rgba(216, 90, 50, .28);
+  border-bottom: 1px solid rgba(216, 90, 50, .28);
+}
+
+/* Service note callouts (e.g. experience page) */
+body.dark .notice {
+  background: #1D1A17;
+  border: 1px solid rgba(216, 90, 50, .32);
+  border-radius: var(--radius-sm);
+  padding: 22px 26px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+}
+
+/* Hairline separation for closing full-width CTA sections */
+body.dark section:has(.cta) {
+  border-top: 1px solid rgba(255, 247, 236, .08);
+}
+
+/* ---------------- 5. Cards & Grids on Base Canvas ---------------- */
+body.dark .card {
+  background: #1C1916;
+  border-color: #38322B;
+}
+
+body.dark a.card:hover {
+  border-color: rgba(216, 90, 50, .45);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .6), 0 0 20px rgba(216, 90, 50, .15);
+}
+
+body.dark .panel {
+  background: #1C1916;
+  border-color: #38322B;
+}
+
+/* Lift media slightly so photography pops with richness */
+body.dark .card-media img { filter: brightness(.95) saturate(1.03); }
+body.dark .tile img { filter: brightness(.96); }
+body.dark .editorial-media img { filter: brightness(.93); }
+body.dark .gallery-item img { filter: brightness(.95); }
+
+/* ---------------- 6. Heroes, Nav & Footer ---------------- */
+body.dark .hero::after {
+  background: linear-gradient(to bottom, transparent 30%, rgba(17, 16, 15, .75) 75%, #11100F 100%);
+}
+
+body.dark .page-hero::after {
+  color: rgba(255, 247, 236, .035);
+}
+
+body.dark .nav {
+  background: rgba(17, 16, 15, .72);
+  border-bottom: 1px solid rgba(255, 255, 255, .06);
+}
+
+body.dark .nav.scrolled {
+  background: rgba(14, 13, 12, .96);
+  border-bottom-color: rgba(255, 255, 255, .09);
+}
+
+/* Footer is grounded with distinct border separation in dark mode */
+body.dark .footer {
+  background: #0A0908;
+  color: #D3C8BD;
+  border-top: 1px solid rgba(255, 247, 236, .10);
+  margin-top: 0;
+}
+body.dark .footer h4 { color: #FFF7EC; }
+body.dark .footer a { color: #A99F96; }
+body.dark .footer a:hover { color: var(--flame); }
+body.dark .footer .brand { color: #FFF7EC; }
+body.dark .footer .brand-text { color: #FFF7EC; }
+body.dark .footer .brand-text small { color: #D3C8BD; opacity: .68; }
+body.dark .f-tag { color: #A99F96; }
+body.dark .f-news input {
+  background: #1D1B19;
+  border: 1.5px solid #3E3730;
+  color: #FFF7EC;
+  box-shadow: none;
+}
+body.dark .f-news input::placeholder { color: #877D74; }
+body.dark .f-news input:focus { border-color: var(--ember); box-shadow: 0 0 0 3px rgba(216, 90, 50, .25); }
+body.dark .footer .f-socials a {
+  background: #1D1B19;
+  border: 1.5px solid #3E3730;
+  color: #D3C8BD;
+  box-shadow: none;
+}
+body.dark .footer .f-socials a:hover {
+  border-color: var(--ember);
+  color: #FF9A77;
+  background: #27231F;
+}
+body.dark .fine { border-top: 1px solid #38322B; color: #8B827A; }
+body.dark .to-top {
+  background: rgba(19, 18, 17, .88);
+  border: 1.5px solid #3E3730;
+  color: #FFF7EC;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+}
+body.dark .to-top:hover { border-color: var(--ember); color: #FF8A61; }
+
+/* ---------------- 7. Form Controls & Widgets ---------------- */
+body.dark .reserve-bar {
+  background: rgba(29, 26, 23, .85);
+  border-color: #4A433B;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, .55);
+}
+
+body.dark .reserve-bar label {
+  background: rgba(17, 16, 15, .75);
+  color: #D3C8BD;
+}
+
+body.dark .field input,
+body.dark .field select,
+body.dark .field textarea {
+  background: #171513;
+  border-color: #3E3730;
+  color: #FFF7EC;
+}
+
+body.dark .field input:focus,
+body.dark .field select:focus,
+body.dark .field textarea:focus {
+  border-color: var(--ember);
+  box-shadow: 0 0 0 3px rgba(216, 90, 50, .25);
+}
+
+/* Selection */
+::selection {
+  background: rgba(216, 90, 50, .40);
+  color: #FFF7EC;
+}
+
+/* ---------------- 8. Auth Pages (Login / Register / Forgot) ---------------- */
+body.dark.auth-page {
+  background: #11100F;
+  color: #FFF7EC;
+}
+
+body.dark .auth-visual {
+  background: #0B0A09;
+  border-right-color: #27221E;
+}
+
+body.dark .auth-main {
+  background: #11100F;
+  color: #FFF7EC;
+}
+
+body.dark .auth-main h1 {
+  color: #FFF7EC;
+}
+
+body.dark .auth-main .auth-sub {
+  color: #D3C8BD;
+}
+
+body.dark .auth-form-brand .brand {
+  color: #FFF7EC;
+}
+
+body.dark .auth-form-brand .brand small {
+  color: #D3C8BD;
+  opacity: .75;
+}
+
+body.dark .auth-kicker {
+  color: #FF9A77;
+}
+
+body.dark .auth-main .field label {
+  color: #FFF7EC;
+}
+
+body.dark .auth-main .field input,
+body.dark .auth-main .field select {
+  background: #1C1916;
+  border-color: #3E3730;
+  color: #FFF7EC;
+  box-shadow: none;
+}
+
+body.dark .auth-main .field input::placeholder,
+body.dark .auth-main .field select::placeholder {
+  color: #877D74;
+}
+
+body.dark .auth-main .field input:focus,
+body.dark .auth-main .field select:focus {
+  background: #221F1B;
+  border-color: #FF8A61;
+  box-shadow: 0 0 0 3px rgba(255, 138, 97, .18);
+}
+
+body.dark .soc-btn {
+  background: #1C1916;
+  border-color: #3E3730;
+  color: #FFF7EC;
+  box-shadow: none;
+}
+
+body.dark .soc-btn:hover {
+  background: #27231F;
+  border-color: #5C5248;
+  color: #FFF7EC;
+}
+
+body.dark .social-auth .divider {
+  color: #8B827A;
+}
+
+body.dark .social-auth .divider::before,
+body.dark .social-auth .divider::after {
+  background: #36302A;
+}
+
+body.dark .auth-foot {
+  color: #B7ACA0;
+}
+
+body.dark .auth-foot a {
+  color: #FF8A61;
+}
+
+body.dark .auth-foot a:hover {
+  color: #FFB08C;
+}
+
+body.dark .demo-hint {
+  background: rgba(255, 247, 236, .03);
+  border-color: #403A35;
+  color: #B7ACA0;
+}
+
+body.dark .demo-hint b {
+  color: #FFF7EC;
+}
+
+body.dark .password-toggle {
+  color: #B7ACA0;
+}
+
+body.dark .password-toggle:hover,
+body.dark .password-toggle.is-visible {
+  color: #FF9A77;
+  background: rgba(216, 90, 50, .14);
+}
+
+body.dark .check-row {
+  color: #B7ACA0;
+}
+
+body.dark .check-row b {
+  color: #FFF7EC;
+}
+
+body.dark .auth-controls .auth-theme-btn,
+body.dark .auth-controls .lang-pill {
+  background: #1C1916;
+  border-color: #3D362F;
+  color: #FFF7EC;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .45);
+}
+
+body.dark .auth-controls .auth-theme-btn:hover,
+body.dark .auth-controls .lang-pill:hover {
+  background: #25211D;
+  border-color: #FF8A61;
+  color: #FF8A61;
+}
+
+body.dark .auth-controls .lang-pill.active {
+  background: #D85A32;
+  border-color: #FF9A77;
+  color: #FFFFFF;
+}
+
+body.dark .forgot-done h2 {
+  color: #FFF7EC;
+}
+
+body.dark .forgot-done p {
+  color: #B7ACA0;
+}
+
+body.dark .forgot-done .confirm-hero-icon {
+  color: #FF8A61;
+}
+
+body.dark .forgot-done .btn-outline,
+body.dark .forgot-done .btn-outline-light {
+  border-color: rgba(255, 247, 236, .35);
+  color: #FFF7EC;
+  background: rgba(255, 247, 236, .05);
+}
+
+body.dark .forgot-done .btn-outline:hover,
+body.dark .forgot-done .btn-outline-light:hover {
+  border-color: #FFF7EC;
+  color: #FFF7EC;
+  background: rgba(255, 247, 236, .12);
+}
+

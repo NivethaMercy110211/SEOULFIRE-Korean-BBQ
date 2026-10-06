@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#131211">
+<title>Reset Password — SEOULFIRE Korean BBQ</title>
+<meta name="description" content="Reset your My Table password.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/dark-theme.css">
+<link rel="stylesheet" href="css/rtl.css">
+<link rel="stylesheet" href="css/tablet.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body class="auth-page">
+<main class="auth" id="main">
+
+  <!-- unique visual: quiet restaurant after service, one immaculate grill table -->
+  <div class="auth-visual">
+    <img src="assets/images/auth/forgot.jpg" alt="Quiet dining room after service with one immaculate grill table under warm light">
+    <span class="auth-badge">My Table · Account help</span>
+    <div class="auth-quote">
+      <p>"After service, the room goes quiet. We'll get you back in before the coals cool."</p>
+      <span>Password resets arrive within a minute or two.</span>
+    </div>
+  </div>
+
+  <div class="auth-main">
+    <div class="auth-brand-row" style="margin-top:-30px">
+      <span class="auth-kicker">Grill. Share. Seoul.</span>
+    </div>
+    <h1>Lost the<br>key to the table?</h1>
+    <p class="auth-sub">Enter your email and we'll send a reset link.</p>
+
+    <form id="forgotForm" data-validate data-success="Reset link sent — check your inbox.">
+      <div class="field" style="margin-bottom:18px">
+        <label for="fEmail">Email</label>
+        <input id="fEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+      </div>
+      <button class="btn btn-primary btn-block btn-lg" type="submit">Send reset link</button>
+    </form>
+
+    <div id="forgotDone" class="forgot-done" style="display:none">
+      <div class="confirm-hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+      <h2 style="font-size:26px;margin:0 0 8px">Check your inbox</h2>
+      <p style="color:#B7ACA0;margin:0 0 22px">If that email has a table with us, a reset link is already on its way.</p>
+      <a class="btn btn-outline-light btn-block btn-lg" href="login.html">Back to login</a>
+    </div>
+
+    <p class="auth-foot">Remembered it? <a href="login.html">Log in</a>.</p>
+  </div>
+</main>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('forgotForm').addEventListener('submit', () => {
+    setTimeout(() => {
+      document.getElementById('forgotForm').style.display = 'none';
+      document.getElementById('forgotDone').style.display = '';
+    }, 400);
+  });
+</script>
+</body>
+</html>

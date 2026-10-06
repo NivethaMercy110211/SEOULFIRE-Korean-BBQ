@@ -1,0 +1,12 @@
+/* desktop.css — ≥1280px refinements */
+@media (min-width: 1280px) {
+  .hero h1 { font-size: clamp(4.2rem, 6.6vw, 6.8rem); }
+  .grid-4 { gap: 22px; }
+  .dash-main { padding: 48px 56px 90px; }
+  .cat-band { grid-template-columns: repeat(4, 1fr); }
+  .gallery-masonry { columns: 4 240px; }
+}
+@media (min-width: 1500px) {
+  .container { width: min(1280px, calc(100% - 48px)); }
+  .dash { grid-template-columns: 288px 1fr; }
+}

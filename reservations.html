@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1E1D1B">
+<title>Reservations — SEOULFIRE Korean BBQ</title>
+<meta name="description" content="Reserve your grill table at SEOULFIRE Korean BBQ. Live availability, seating preferences and clear policies.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/reservations.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/dark-theme.css">
+<link rel="stylesheet" href="css/rtl.css">
+<link rel="stylesheet" href="css/desktop.css">
+<link rel="stylesheet" href="css/tablet.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="page-hero" style="background-image:url('assets/images/hero/reservations.png')" data-word="TABLES">
+    <div class="container">
+      <span class="crumbs">Reservations</span>
+      <h1>Your Table Awaits</h1>
+      <p class="lead">Pick your night, choose your table, and let us prepare the coals.</p>
+    </div>
+  </section>
+
+  <!-- ============ BOOKING FLOW ============ -->
+  <section id="book">
+    <div class="container">
+      <div class="flow-steps" aria-hidden="true">
+        <span data-s="1" class="on">1 · Party</span><span data-s="2">2 · Date</span><span data-s="3">3 · Time</span><span data-s="4">4 · Seating</span><span data-s="5">5 · Details</span><span data-s="6">6 · Review</span><span data-s="7">7 · Confirm</span>
+      </div>
+
+      <div class="booking">
+        <div class="booking-main">
+
+          <!-- step 1 party -->
+          <div class="panel" data-step="1">
+            <h3>How many are eating?</h3>
+            <p class="panel-sub">Tables are held for the whole party size you select.</p>
+            <div class="party-grid" id="partyGrid"></div>
+            <div id="partyWarn" style="margin-top:14px"></div>
+            <p class="party-help">
+              <span>For the best grill setup, include every adult and child in your party.</span>
+              <span>Groups of 12 or more can call us for adjoining tables or private dining.</span>
+            </p>
+          </div>
+
+          <!-- step 2 date -->
+          <div class="panel" data-step="2">
+            <h3>Pick your night</h3>
+            <p class="panel-sub">We're dark on Mondays. Availability updates as tables commit.</p>
+            <div class="field" style="max-width:280px">
+              <label for="resDate">Date</label>
+              <input type="date" id="resDate" required>
+            </div>
+            <div id="dateInfo" class="notice" style="display:none;margin:16px 0 0"></div>
+          </div>
+
+          <!-- step 3 time -->
+          <div class="panel" data-step="3">
+            <h3>Choose an open time</h3>
+            <p class="panel-sub">Only genuinely available slots are shown — crossed-out slots just filled.</p>
+            <div class="slot-grid" id="slotGrid"></div>
+            <p class="hint" style="color:var(--muted);font-size:12.5px;margin-top:14px">Times shown are tonight's demo availability; connect booking data to make this live.</p>
+          </div>
+
+          <!-- step 4 seating -->
+          <div class="panel" data-step="4">
+            <h3>Seating preference</h3>
+            <p class="panel-sub">We hold your preference and confirm by email.</p>
+            <div class="seat-grid" id="seatGrid"></div>
+          </div>
+
+          <!-- step 5 details -->
+          <div class="panel" data-step="5">
+            <h3>Guest details</h3>
+            <form id="detailsForm" data-validate="off" novalidate>
+              <div class="form-grid">
+                <div class="field"><label for="gName">Full name</label><input id="gName" required autocomplete="name" placeholder="Kim Min-jun"></div>
+                <div class="field"><label for="gPhone">Phone</label><input id="gPhone" type="tel" required autocomplete="tel" placeholder="(213) 555-0140"></div>
+                <div class="field full"><label for="gEmail">Email</label><input id="gEmail" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+                <div class="field full"><label for="gNotes">Occasion or notes <span class="hint">(optional)</span></label><textarea id="gNotes" rows="3" placeholder="Birthday, allergies, high chair…"></textarea></div>
+              </div>
+            </form>
+          </div>
+
+          <!-- step 6 review -->
+          <div class="panel" data-step="6">
+            <h3>Review your table</h3>
+            <dl class="review-list" id="reviewList"></dl>
+            <div class="check-row"><input type="checkbox" id="agree" required><label for="agree" style="color:var(--muted)">I understand the <a class="link-plain" href="#policies">reservation policies</a> — tables are held 15 minutes past booking time.</label></div>
+            <div id="reviewErr"></div>
+          </div>
+
+        </div>
+
+        <!-- summary aside -->
+        <aside class="booking-aside">
+          <div class="panel">
+            <h3 style="margin-top:0">Your table so far</h3>
+            <div class="sum-row"><span>Party</span><b id="sumParty">—</b></div>
+            <div class="sum-row"><span>Date</span><b id="sumDate">—</b></div>
+            <div class="sum-row"><span>Time</span><b id="sumTime">—</b></div>
+            <div class="sum-row"><span>Seating</span><b id="sumSeat">—</b></div>
+            <div class="sum-row"><span>Name</span><b id="sumName">—</b></div>
+            <p class="hint" style="color:var(--muted);font-size:12.5px;margin:14px 0 0">A reservation reference is generated after you confirm. No deposit required for parties under 12.</p>
+          </div>
+        </aside>
+
+        <!-- booking navigation -->
+        <div class="booking-actions">
+          <button class="btn btn-outline" id="backBtn" type="button">Back</button>
+          <button class="btn btn-primary btn-lg" id="nextBtn" type="button">Continue →</button>
+        </div>
+
+        <div class="panel booking-image-panel">
+          <img src="assets/images/pages/reservation_grid.png" alt="A prepared Korean BBQ table ready for guests">
+          <p>Every table gets a built-in grill, banchan service and a server who knows the cuts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POLICIES ============ -->
+  <section class="section-alt" id="policies">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><span class="kicker">Good to know</span><h2>Reservation policies</h2></div>
+        <p>Clear terms keep the room fair for every table.</p>
+      </div>
+      <div class="policy-grid reveal">
+        <div class="panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><h3>Late arrivals</h3><p>We hold tables for 15 minutes; after that, they may be released.</p></div>
+        <div class="panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><h3>Large groups</h3><p>Parties of 12 or more are arranged by our events team — <a class="link-plain" href="contact.html#groups">get in touch</a> for set menus and the private room.</p></div>
+        <div class="panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6l12 12M18 6L6 18"/></svg><h3>Cancellations</h3><p>Cancel or modify free of charge up to 4 hours before your reservation, in My Table or by phone.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section>
+    <div class="cta" style="margin:40px auto 0;width:min(1320px,calc(100% - 30px));border-radius:30px;padding:84px 7%;color:#fff;position:relative;isolation:isolate;background:url('assets/images/cta/reservation-cta.png') center/cover">
+      <div style="position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(19,18,17,.9),rgba(19,18,17,.3))"></div>
+      <span class="kicker" style="color:#FF9A77">Prefer to talk</span>
+      <h2 style="font:800 clamp(2rem,4.6vw,4rem)/1 'Manrope';letter-spacing:-.05em;margin:14px 0">Call us after 2 PM.<br>Or book above in a minute.</h2>
+      <a class="btn btn-light btn-lg" href="tel:+12135550140" style="margin-top:24px">(213) 555-0140</a>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ---------- reservation flow ---------- */
+(function () {
+  const $ = s => document.querySelector(s);
+  const state = { party: null, date: null, time: null, seat: 'standard', name: '', phone: '', email: '', notes: '' };
+  let step = 1;
+  const TOTAL = 6;
+
+  const partyGrid = $('#partyGrid');
+  partyGrid.innerHTML = [2, 3, 4, 5, 6, 8, 10, '12+'].map(n => {
+    const label = n === '12+' ? '12+' : `${n}`;
+    const small = n === '12+' ? 'call us' : n === 1 ? 'solo grill' : 'guests';
+    return `<button type="button" class="slot" data-party="${n}"><b>${label}</b><small>${small}</small></button>`;
+  }).join('');
+
+  const seatGrid = $('#seatGrid');
+  seatGrid.innerHTML = SF.DATA.seating.map(s => `
+    <button type="button" class="seat-card ${s.id === 'standard' ? 'sel' : ''}" data-seat="${s.id}">
+      <b>${s.name}</b><span>${s.desc}</span>
+    </button>`).join('');
+
+  function fmtDate(d) {
+    if (!d) return '—';
+    const dt = new Date(d + 'T12:00:00');
+    return dt.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  function updateSummary() {
+    $('#sumParty').textContent = state.party ? (state.party === '12+' ? '12+ (call)' : state.party + ' guests') : '—';
+    $('#sumDate').textContent = fmtDate(state.date);
+    $('#sumTime').textContent = state.time || '—';
+    $('#sumSeat').textContent = (SF.DATA.seating.find(s => s.id === state.seat) || {}).name || '—';
+    $('#sumName').textContent = state.name || '—';
+  }
+  function markSteps() {
+    document.querySelectorAll('.flow-steps span').forEach((el, i) => {
+      el.classList.toggle('on', i + 1 === step);
+      el.classList.toggle('done', i + 1 < step);
+    });
+    document.querySelectorAll('[data-step]').forEach(p => p.style.display = +p.dataset.step === step ? '' : 'none');
+    $('#backBtn').style.visibility = step === 1 ? 'hidden' : 'visible';
+    $('#nextBtn').textContent = step === TOTAL ? 'Confirm reservation →' : 'Continue →';
+  }
+  function renderSlots() {
+    const grid = $('#slotGrid');
+    if (!state.date || !state.party) { grid.innerHTML = '<p class="hint" style="color:var(--muted)">Pick a party size and date first.</p>'; return; }
+    const slots = SF.availability(state.date, state.party);
+    if (!slots.length) {
+      grid.innerHTML = `<div class="notice fully-booked-notice"><h4>That night is fully committed</h4><p>Try another date — or call us and we'll keep a list for cancellations.</p></div>`;
+      state.time = null; return;
+    }
+    grid.innerHTML = slots.map(t => `<button type="button" class="slot ${state.time === t ? 'sel' : ''}" data-time="${t}">${t}</button>`).join('');
+  }
+  function renderReview() {
+    const seat = SF.DATA.seating.find(s => s.id === state.seat);
+    $('#reviewList').innerHTML = `
+      <div><dt>Name</dt><dd>${state.name || '—'}</dd></div>
+      <div><dt>Date</dt><dd>${fmtDate(state.date)}</dd></div>
+      <div><dt>Time</dt><dd>${state.time || '—'}</dd></div>
+      <div><dt>Party size</dt><dd>${state.party || '—'}</dd></div>
+      <div><dt>Seating</dt><dd>${seat ? seat.name : '—'}</dd></div>
+      <div><dt>Contact</dt><dd>${state.email || '—'}</dd></div>
+      ${state.notes ? `<div><dt>Notes</dt><dd>${state.notes}</dd></div>` : ''}`;
+  }
+
+  partyGrid.addEventListener('click', e => {
+    const b = e.target.closest('[data-party]'); if (!b) return;
+    partyGrid.querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel');
+    state.party = b.dataset.party === '12+' ? '12+' : +b.dataset.party;
+    if (state.party === '12+') $('#partyWarn').innerHTML = '<div class="notice" style="margin:14px 0 0"><h4>Large party</h4><p>For 12+, our events team sets the table personally — <a class="link-plain" href="contact.html#groups">contact group dining</a> or call.</p></div>';
+    else $('#partyWarn').innerHTML = '';
+    updateSummary(); renderSlots();
+  });
+  $('#resDate').addEventListener('change', e => {
+    state.date = e.target.value;
+    const d = new Date(e.target.value + 'T12:00:00');
+    const info = $('#dateInfo');
+    if (d.getDay() === 1) { info.style.display = ''; info.innerHTML = '<h4>We are closed Mondays</h4><p>Pick any other night — the grill needs its rest too.</p>'; }
+    else info.style.display = 'none';
+    updateSummary(); renderSlots();
+  });
+  $('#slotGrid').addEventListener('click', e => {
+    const b = e.target.closest('[data-time]'); if (!b) return;
+    $('#slotGrid').querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel'); state.time = b.dataset.time; updateSummary();
+  });
+  seatGrid.addEventListener('click', e => {
+    const b = e.target.closest('[data-seat]'); if (!b) return;
+    seatGrid.querySelectorAll('.seat-card').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel'); state.seat = b.dataset.seat; updateSummary();
+  });
+  $('#detailsForm').addEventListener('input', () => {
+    state.name = $('#gName').value.trim(); state.phone = $('#gPhone').value.trim();
+    state.email = $('#gEmail').value.trim(); state.notes = $('#gNotes').value.trim();
+    updateSummary();
+  });
+
+  $('#nextBtn').addEventListener('click', () => {
+    if (step === 1 && !state.party) return toast('Choose your party size first.');
+    if (step === 2 && !state.date) return toast('Pick a date to continue.');
+    if (step === 2) { const d = new Date(state.date + 'T12:00:00'); if (d.getDay() === 1) return toast('We are closed on Mondays — pick another night.'); }
+    if (step === 3 && !state.time) return toast('Select one of the open times.');
+    if (step === 5) {
+      let ok = true;
+      ['gName', 'gPhone', 'gEmail'].forEach(idv => {
+        const el = document.getElementById(idv);
+        el.closest('.field')?.querySelector('.error')?.remove();
+        const bad = !el.value.trim() || (idv === 'gEmail' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value));
+        if (bad) { ok = false; el.closest('.field').insertAdjacentHTML('beforeend', '<span class="error">Please complete this field.</span>'); }
+      });
+      if (!ok) return;
+    }
+    if (step === 6) {
+      if (!$('#agree').checked) { $('#reviewErr').innerHTML = '<span class="error">Please acknowledge the reservation policies.</span>'; return; }
+      const ref = 'SF-' + String(Math.floor(1000 + Math.random() * 9000));
+      sessionStorage.setItem('sfReservation', JSON.stringify({ ...state, ref, created: Date.now() }));
+      location.href = 'confirmation.html';
+      return;
+    }
+    step = Math.min(TOTAL, step + 1);
+    if (step === 6) renderReview();
+    markSteps();
+    document.querySelector('.booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('#backBtn').addEventListener('click', () => { step = Math.max(1, step - 1); markSteps(); });
+
+  markSteps(); renderSlots(); updateSummary();
+})();
+</script>
+</body>
+</html>

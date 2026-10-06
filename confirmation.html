@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1E1D1B">
+<title>Reservation Confirmed — SEOULFIRE Korean BBQ</title>
+<meta name="description" content="Your grill is waiting. Reservation confirmed.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/reservations.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/dark-theme.css">
+<link rel="stylesheet" href="css/rtl.css">
+<link rel="stylesheet" href="css/desktop.css">
+<link rel="stylesheet" href="css/tablet.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
+
+  <section class="page-hero" style="background-image:url('assets/images/pages/confirm-hero.jpg')" data-word="CONFIRMED">
+    <div class="container confirm-wrap">
+      <div class="confirm-hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="crumbs">Reservation confirmed</span>
+      <h1>Your Grill<br>Is Waiting.</h1>
+      <p class="lead">A confirmation email is on its way. Show your reference at the host stand.</p>
+      <div style="margin-top:26px"><span class="ref-pill" id="refPill">SF-0000</span></div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div class="container">
+      <div class="panel" style="max-width:780px;margin:0 auto">
+        <div class="panel-head"><h3>Reservation details</h3><span class="badge badge-green">Confirmed</span></div>
+        <dl class="review-list" id="resDetails"></dl>
+        <div class="addcal" style="margin-top:24px">
+          <a id="calGoogle" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to Google Calendar</a>
+          <a href="#" onclick="return false" title=".ics download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Download .ics file</a>
+          <a href="dashboard.html#reservations"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Manage in My Table</a>
+          <a href="contact.html#map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Get directions</a>
+        </div>
+      </div>
+
+      <div class="panel" style="max-width:780px;margin:18px auto 0">
+        <div class="panel-head"><h3>Before you arrive</h3></div>
+        <p style="color:var(--muted);margin:0 0 10px;font-size:14.5px">Tables are held 15 minutes past booking time. Running late? Call <b>(213) 555-0140</b> and we'll hold the coals as long as we can.</p>
+        <p style="color:var(--muted);margin:0;font-size:14.5px">First time at Korean BBQ? The <a class="link-plain" href="experience.html">BBQ experience page</a> walks you through the whole night.</p>
+      </div>
+
+      <div style="text-align:center;margin-top:40px">
+        <a class="btn btn-primary" href="menu.html">Browse the menu while you wait →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function () {
+  const saved = JSON.parse(sessionStorage.getItem('sfReservation') || 'null');
+  const res = saved || { name: 'Guest', party: 2, date: new Date().toISOString().slice(0, 10), time: '7:00 PM', seat: 'standard', ref: 'SF-2481' };
+  const seat = SF.DATA.seating.find(s => s.id === res.seat);
+  const dt = new Date(res.date + 'T12:00:00');
+  const long = dt.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+  document.title = `Reservation ${res.ref} — SEOULFIRE Korean BBQ`;
+  document.getElementById('refPill').textContent = res.ref;
+  document.getElementById('resDetails').innerHTML = `
+    <div><dt>Reservation name</dt><dd>${res.name}</dd></div>
+    <div><dt>Date</dt><dd>${long}</dd></div>
+    <div><dt>Time</dt><dd>${res.time}</dd></div>
+    <div><dt>Party size</dt><dd>${res.party}${String(res.party).includes('+') ? '' : ' guests'}</dd></div>
+    <div><dt>Seating</dt><dd>${seat ? seat.name : 'Standard Grill Table'}</dd></div>
+    <div><dt>Reference</dt><dd>${res.ref}</dd></div>
+    <div><dt>Location</dt><dd>${SF.DATA.restaurant.address}</dd></div>`;
+
+  const pad = n => String(n).padStart(2, '0');
+  const start = `${res.date}T19:00:00`, end = `${res.date}T21:00:00`;
+  document.getElementById('calGoogle').href =
+    `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('SEOULFIRE Korean BBQ — ' + res.ref)}` +
+    `&dates=${start.replace(/[-:]/g, '')}/${end.replace(/[-:]/g, '')}&details=${encodeURIComponent('Reservation ' + res.ref + ' · Grill. Share. Seoul.')}` +
+    `&location=${encodeURIComponent(SF.DATA.restaurant.address)}`;
+})();
+</script>
+</body>
+</html>

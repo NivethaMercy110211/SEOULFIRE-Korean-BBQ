@@ -1,0 +1,56 @@
+/* footer.css — footer extras */
+.footer .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin: 0 0 14px;
+  font-family: 'Manrope';
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.footer .brand-mark { width: 40px; height: 40px; }
+.footer .brand-text { color: var(--ink); font-weight: 800; }
+.footer .brand-text small { color: var(--muted); opacity: .85; }
+.footer .brand small { font-family: 'DM Sans'; font-size: 10px; font-weight: 500; letter-spacing: .3em; }
+.f-news { margin-top: 22px; display: flex; gap: 8px; max-width: 320px; }
+.f-news input {
+  flex: 1; min-width: 0; border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 99px; padding: 11px 18px; font-size: 13.5px; outline: none;
+  box-shadow: 0 1px 4px rgba(30, 29, 27, .04); transition: border-color .2s, box-shadow .2s;
+}
+.f-news input::placeholder { color: var(--muted); opacity: .75; }
+.f-news input:focus { border-color: var(--ember); box-shadow: 0 0 0 3px rgba(216, 90, 50, .14); }
+.f-news .btn { padding: 11px 18px; }
+.f-tag { color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
+.f-socials { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+.footer .f-socials a {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--card);
+  box-shadow: 0 2px 6px rgba(30, 29, 27, .04);
+  transition: all .2s ease;
+}
+.footer .f-socials a:hover { border-color: var(--ember); color: var(--ember); background: #FAF5EE; transform: translateY(-2px); }
+.footer .f-socials svg { width: 17px; height: 17px; }
+
+/* back-to-top */
+.to-top {
+  position: fixed; right: 22px; bottom: 22px; z-index: 55; width: 46px; height: 46px;
+  border-radius: 50%; border: 1.5px solid var(--line); background: var(--card); color: var(--ink);
+  box-shadow: 0 8px 24px rgba(30, 29, 27, .12);
+  display: grid; place-items: center; cursor: pointer; opacity: 0; pointer-events: none;
+  transition: all .3s ease; backdrop-filter: blur(8px);
+}
+.to-top.show { opacity: 1; pointer-events: auto; }
+.to-top:hover { border-color: var(--ember); color: var(--ember); }
+.to-top svg { width: 17px; height: 17px; }

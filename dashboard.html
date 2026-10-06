@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#131211">
+<title>My Table — SEOULFIRE Korean BBQ</title>
+<meta name="description" content="My Table — your SEOULFIRE guest dashboard: reservations, favorites, Grill Club points, payments and visit history.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/menu.css">
+<link rel="stylesheet" href="css/reservations.css">
+<link rel="stylesheet" href="css/loyalty.css">
+<link rel="stylesheet" href="css/payments.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/dark-theme.css">
+<link rel="stylesheet" href="css/rtl.css">
+<link rel="stylesheet" href="css/desktop.css">
+<link rel="stylesheet" href="css/tablet.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body class="dash-page">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="dash">
+  <aside class="sidebar" id="dashSidebar">
+    <button class="icon-btn dash-sidebar-close" id="dashSidebarClose" type="button" aria-label="Close dashboard menu">×</button>
+    <a class="brand dash-brand" href="index.html"><span class="brand-mark" id="sideBrandMark"></span><span class="brand-text">SEOULFIRE<small>Korean BBQ</small></span></a>
+    <nav id="dashNav" aria-label="Dashboard"></nav>
+  </aside>
+
+  <main class="dash-main" id="main" tabindex="-1">
+    <div class="dash-utility">
+      <button class="icon-btn dash-drawer-btn" id="dashDrawer" aria-label="Dashboard menu"></button>
+      <div class="dash-utility-actions">
+        <button class="lang-pill" id="rtlBtn" aria-label="Toggle RTL/LTR" title="Toggle RTL layout"><span>RTL</span></button>
+        <button class="icon-btn" id="themeBtn" aria-label="Toggle theme"></button>
+        <div class="notification-menu">
+          <button class="icon-btn notification-btn" id="notificationBtn" aria-label="Notifications" aria-expanded="false" aria-haspopup="menu"><span class="notification-dot"></span></button>
+          <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="Notifications">
+            <div class="notification-head"><strong>Notifications</strong><button type="button" id="clearNotifications">Mark all read</button></div>
+            <div class="notification-item"><span class="notification-icon">✓</span><div><b>Reservation confirmed</b><small>Your table for Oct 8 is ready to go.</small></div></div>
+            <div class="notification-item"><span class="notification-icon">★</span><div><b>Points added</b><small>180 Grill Club points were added.</small></div></div>
+          </div>
+        </div>
+        <div class="profile-menu">
+          <button class="profile-trigger" id="profileTrigger" aria-expanded="false" aria-haspopup="menu">
+            <span class="avatar">MK</span><span>Min-jun Kim</span><span id="profileChevron"></span>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown" role="menu">
+            <button type="button" data-utility-view="profile" role="menuitem">Account</button>
+            <button type="button" data-utility-view="settings" role="menuitem">Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="viewRoot"></div>
+  </main>
+</div>
+
+<dialog class="logout-dialog" id="logoutDialog" aria-labelledby="logoutTitle">
+  <div class="logout-dialog-icon" id="logoutDialogIcon"></div>
+  <h2 id="logoutTitle">Log out of My Table?</h2>
+  <p>Your reservations and saved favorites will be here when you return.</p>
+  <div class="logout-dialog-actions">
+    <button class="btn btn-outline" id="staySignedIn" type="button">Stay signed in</button>
+    <button class="btn btn-primary" id="confirmLogout" type="button">Log out</button>
+  </div>
+</dialog>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* ============================================================
+   MY TABLE — guest dashboard views
+   ============================================================ */
+(function () {
+  const $ = s => document.querySelector(s);
+  const root = $('#viewRoot');
+
+  /* icons into the dashboard shell */
+  $('#sideBrandMark').innerHTML = I.fire;
+  $('#dashDrawer').innerHTML = I.burger;
+  $('#notificationBtn').insertAdjacentHTML('afterbegin', I.bell);
+  $('#profileChevron').innerHTML = I.chev;
+  $('#logoutDialogIcon').innerHTML = I.logout;
+
+  /* ---------- persistent demo reservations ---------- */
+  const today = new Date();
+  const plusDays = n => { const d = new Date(today); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+  const defaultRes = [
+    { ref: 'SF-2634', name: 'Min-jun Kim', party: 4, date: plusDays(3), time: '7:30 PM', seat: 'standard', status: 'Confirmed' },
+    { ref: 'SF-2701', name: 'Min-jun Kim', party: 8, date: plusDays(17), time: '6:00 PM', seat: 'private', status: 'Confirmed' },
+  ];
+  let reservations = store.get('reservations', defaultRes);
+  const saveRes = () => store.set('reservations', reservations);
+
+  const fmt = d => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const seatName = id => (SF.DATA.seating.find(s => s.id === id) || {}).name || 'Standard Grill Table';
+  const nextRes = () => reservations.slice().sort((a, b) => a.date.localeCompare(b.date))[0];
+
+  /* ---------- sidebar ---------- */
+  const NAV = [
+    ['overview', 'Overview', 'home'],
+    ['reserve', 'Reserve a Table', 'calendar'],
+    ['reservations', 'My Reservations', 'book'],
+    ['menu', 'Explore Menu', 'menuIco'],
+    ['favorites', 'Favorites', 'heart'],
+    ['logout', 'Logout', 'logout'],
+  ];
+  $('#dashNav').innerHTML = NAV.map(([id, label, ico]) =>
+    `<a href="#${id}" data-view="${id}" class="${id === 'overview' ? 'active' : ''}">${I[ico]}<span>${label}</span></a>`).join('');
+
+  $('#dashNav').addEventListener('click', e => {
+    const a = e.target.closest('a[data-view]'); if (!a) return;
+    if (a.dataset.view === 'logout') {
+      e.preventDefault();
+      $('#logoutDialog').showModal();
+      return;
+    }
+    show(a.dataset.view);
+    $('#dashSidebar').classList.remove('open');
+  });
+  $('#dashDrawer').addEventListener('click', () => $('#dashSidebar').classList.toggle('open'));
+  $('#dashSidebarClose').addEventListener('click', () => $('#dashSidebar').classList.remove('open'));
+
+  $('#profileTrigger').addEventListener('click', () => {
+    const open = $('#profileDropdown').classList.toggle('open');
+    $('#profileTrigger').setAttribute('aria-expanded', String(open));
+  });
+  document.querySelectorAll('[data-utility-view]').forEach(button => button.addEventListener('click', () => {
+    show(button.dataset.utilityView);
+    $('#profileDropdown').classList.remove('open');
+    $('#profileTrigger').setAttribute('aria-expanded', 'false');
+  }));
+  $('#notificationBtn').addEventListener('click', () => {
+    const open = $('#notificationDropdown').classList.toggle('open');
+    $('#notificationBtn').setAttribute('aria-expanded', String(open));
+  });
+  $('#clearNotifications').addEventListener('click', () => {
+    $('.notification-dot').style.display = 'none';
+    $('#notificationDropdown').classList.remove('open');
+    $('#notificationBtn').setAttribute('aria-expanded', 'false');
+    toast('All notifications marked as read.');
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.notification-menu')) {
+      $('#notificationDropdown').classList.remove('open');
+      $('#notificationBtn').setAttribute('aria-expanded', 'false');
+    }
+  });
+  $('#staySignedIn').addEventListener('click', () => $('#logoutDialog').close());
+  $('#confirmLogout').addEventListener('click', () => { location.href = 'login.html'; });
+  $('#logoutDialog').addEventListener('click', e => {
+    if (e.target === $('#logoutDialog')) $('#logoutDialog').close();
+  });
+
+  function show(view) {
+    document.querySelectorAll('#dashNav a').forEach(a => a.classList.toggle('active', a.dataset.view === view));
+    location.hash = view;
+    root.innerHTML = VIEWS[view] ? VIEWS[view]() : VIEWS.overview();
+    root.scrollIntoView({ block: 'start' });
+    if (BIND[view]) BIND[view]();
+  }
+
+  /* ---------- shared partials ---------- */
+  const nextTableCard = (r) => `
+    <div class="next-table">
+      <div>
+        <span class="kicker">Your next table</span>
+        <h2>${fmt(r.date)} · ${r.time}</h2>
+        <div class="reservation-meta">
+          <span>Party<b>${r.party}${String(r.party).includes('+') ? '' : ' guests'}</b></span>
+          <span>Seating<b>${seatName(r.seat)}</b></span>
+          <span>Reference<b>${r.ref}</b></span>
+          <span>Location<b>410 Wilshire Blvd</b></span>
+        </div>
+        <div class="ref">Under the name ${r.name}</div>
+      </div>
+      <div class="next-table-actions">
+        <a class="btn btn-light" href="#reservations" data-goto="reservations">View reservation</a>
+        <button class="btn btn-ghost" data-modify="${r.ref}" style="color:#FFF7EC">Modify</button>
+        <button class="btn btn-ghost" data-cancel="${r.ref}" style="color:#FFB08C">Cancel</button>
+        <a class="btn btn-ghost" style="color:#FFF7EC" href="https://maps.google.com/?q=410+Wilshire+Blvd+Los+Angeles" target="_blank" rel="noopener">Get directions</a>
+      </div>
+    </div>`;
+
+  const favMini = (item) => `
+    <a class="arrow-link" href="menu.html#${item.id}" style="justify-content:space-between;width:100%;padding:10px 0;border-bottom:1px dashed var(--line)">
+      <span>${item.name}</span><span class="price" style="font-size:13px">$${item.price}</span>
+    </a>`;
+
+  /* ---------- views ---------- */
+  const VIEWS = {};
+
+  VIEWS.overview = () => {
+    const r = nextRes();
+    const favItems = (store.get('favs', SF.DATA.favorites) || []).map(id => SF.DATA.menu.find(m => m.id === id)).filter(Boolean);
+    const lo = SF.DATA.loyalty;
+    return `
+    <div class="dash-top">
+      <div><h1>Good evening, Min-jun.</h1><p class="sub">The grill missed you. Here's where things stand.</p></div>
+      <button class="btn btn-primary" data-goto="reserve">Reserve a table</button>
+    </div>
+    ${r ? nextTableCard(r) : `<div class="next-table"><div><span class="kicker">Your next table</span><h2>No reservation yet.</h2><p style="color:#D3C8BD;max-width:420px">Pick a night and we'll have the coals ready.</p></div><div class="next-table-actions"><button class="btn btn-primary" data-goto="reserve">Reserve now</button></div></div>`}
+
+    <div class="dash-grid">
+      <div class="panel">
+        <div class="panel-head"><h3>Your favorites &amp; recommendations</h3><a class="arrow-link" href="#" data-goto="menu">Explore menu →</a></div>
+        <div style="display:grid;gap:2px">${favItems.slice(0, 4).map(favMini).join('') || '<p class="panel-sub">No favorites yet — tap the heart on any dish.</p>'}</div>
+        <div class="panel-head" style="margin-top:22px"><h3>Worth a try next</h3></div>
+        <div class="grid grid-2" style="gap:12px">
+          ${sfCard(SF.DATA.menu.find(m => m.id === 'yangnyeom-dwaeji'), { favToggle: false })}
+          ${sfCard(SF.DATA.menu.find(m => m.id === 'stew-tofu'), { favToggle: false })}
+        </div>
+      </div>
+
+      <div class="overview-side">
+        <div class="loyalty-card">
+          <small>SeoulFire Grill Club</small>
+          <div class="pts">${lo.points.toLocaleString()} <span style="font-size:14px;letter-spacing:.08em">PTS</span></div>
+          <div class="tier-meter"><i style="width:${Math.min(100, Math.round(lo.points / lo.nextRewardAt * 100))}%"></i></div>
+          <div class="row"><span>Next reward at ${lo.nextRewardAt.toLocaleString()} pts</span><b>${lo.nextRewardAt - lo.points} to go</b></div>
+          <a class="btn btn-light btn-sm" style="margin-top:18px" href="#" data-goto="loyalty">View rewards</a>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Recent visits</h3><a class="arrow-link" href="#" data-goto="visits">All visits →</a></div>
+          ${SF.DATA.visits.slice(0, 2).map(v => `<div class="sum-row"><span>${v.date} · ${v.party} guests</span><b>+${v.points} pts</b></div>`).join('')}
+        </div>
+        <div class="panel overview-plan">
+          <span class="kicker">Plan ahead</span>
+          <h3>Ready for another round?</h3>
+          <p class="panel-sub">Choose a night, set the party size, and we’ll hold the grill for your table.</p>
+          <div class="overview-plan-steps" aria-label="Reservation steps">
+            <span><b>01</b> Pick your date</span>
+            <span><b>02</b> Set your party</span>
+            <span><b>03</b> Choose a time</span>
+          </div>
+          <button class="btn btn-primary" data-goto="reserve">Reserve a table</button>
+        </div>
+      </div>
+    </div>`;
+  };
+
+  VIEWS.reserve = () => `
+    <div class="dash-top"><div><h1>Reserve a table</h1><p class="sub">Only genuinely open times are shown.</p></div></div>
+    <div class="booking dashboard-booking" style="grid-template-columns:1fr">
+      <div class="booking-main">
+        <div class="panel">
+          <h3>1 · Party size</h3>
+          <div class="party-grid" id="dParty"></div>
+        </div>
+        <div class="panel">
+          <h3>2 · Date</h3>
+          <div class="field" style="max-width:280px"><label for="dDate">Date</label><input type="date" id="dDate"></div>
+          <div id="dDateInfo" class="notice" style="display:none;margin:14px 0 0"></div>
+        </div>
+        <div class="panel">
+          <h3>3 · Available time</h3>
+          <div class="slot-grid" id="dSlots"></div>
+        </div>
+        <div class="panel">
+          <h3>4 · Seating preference</h3>
+          <div class="seat-grid" id="dSeat"></div>
+        </div>
+        <div class="panel">
+          <h3>5 · Guest details</h3>
+          <div class="form-grid">
+            <div class="field"><label for="dName">Full name</label><input id="dName" value="Min-jun Kim"></div>
+            <div class="field"><label for="dEmail">Email</label><input id="dEmail" type="email" value="minjun@example.com"></div>
+            <div class="field full"><label for="dNotes">Notes (optional)</label><textarea id="dNotes" rows="2" placeholder="Occasion, allergies, high chair…"></textarea></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>6 · Review</h3>
+          <dl class="review-list" id="dReview"></dl>
+        </div>
+        <div style="display:flex;justify-content:flex-end">
+          <button class="btn btn-primary btn-lg" id="dConfirm">7 · Confirm reservation →</button>
+        </div>
+      </div>
+    </div>`;
+
+  VIEWS.reservations = () => `
+    <div class="dash-top"><div><h1>My reservations</h1><p class="sub">Upcoming tables under your account.</p></div>
+      <button class="btn btn-primary" data-goto="reserve">New reservation</button></div>
+    <div class="panel">
+      ${reservations.length ? reservations.map(r => `
+        <div class="record">
+          <div class="r-main">
+            <b>${fmt(r.date)} · ${r.time} — ${r.party}${String(r.party).includes('+') ? '' : ' guests'}</b>
+            <span>${seatName(r.seat)} · ${r.ref} · under ${r.name}</span>
+          </div>
+          <div class="r-side">
+            <span class="status-pill status-paid">${r.status}</span>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline btn-sm" data-modify="${r.ref}">Modify</button>
+              <button class="btn btn-danger btn-sm" data-cancel="${r.ref}">Cancel</button>
+            </div>
+          </div>
+        </div>`).join('') : '<p class="panel-sub">No upcoming reservations.</p>'}
+    </div>
+    <div class="notice"><h4>Reservation policies</h4><p>Tables are held 15 minutes past booking time. Free cancellation or modification up to 4 hours before your reservation.</p></div>`;
+
+  VIEWS.menu = () => {
+    const cats = [['all', 'All'], ...new Map(SF.DATA.menu.map(i => [i.cat, 1])).keys()].map(([id, label]) => label ? [id, label] : [id, id]);
+    const labels = { all: 'All', sets: 'Sets', beef: 'Beef', pork: 'Pork', chicken: 'Chicken', seafood: 'Seafood', banchan: 'Banchan', rice: 'Rice', soups: 'Soups', vegetarian: 'Veg', desserts: 'Dessert', drinks: 'Drinks' };
+    return `
+    <div class="dash-top"><div><h1>Explore menu</h1><p class="sub">Save dishes for your next visit — hearts sync to Favorites.</p></div></div>
+    <div class="seg wide" id="menuSeg" style="margin-bottom:20px">
+      ${Object.keys(labels).map((k, i) => `<button class="${i === 0 ? 'active' : ''}" data-mcat="${k}">${labels[k]}</button>`).join('')}
+    </div>
+    <div class="dash-menu-grid" id="menuGrid">
+      ${SF.DATA.menu.map(m => sfCard(m)).join('')}
+    </div>`;
+  };
+
+  VIEWS.favorites = () => {
+    const favIds = store.get('favs', SF.DATA.favorites) || [];
+    const items = favIds.map(id => SF.DATA.menu.find(m => m.id === id)).filter(Boolean);
+    return `
+    <div class="dash-top"><div><h1>Favorites</h1><p class="sub">Saved for your next visit — show this list to your server.</p></div></div>
+    ${items.length ? `<div class="dash-menu-grid favorites-menu-grid">${items.map(m => sfCard(m)).join('')}</div>`
+      : `<div class="panel" style="text-align:center;padding:60px 24px">
+           <div class="confirm-hero-icon">${I.heart.replace('<svg', '<svg style="width:34px;height:34px"')}</div>
+           <h3>No favorites yet</h3>
+           <p class="panel-sub">Tap the heart on any dish in the menu explorer and it lands here.</p>
+           <button class="btn btn-primary" data-goto="menu">Explore the menu</button>
+         </div>`}`;
+  };
+
+  VIEWS.loyalty = () => {
+    const lo = SF.DATA.loyalty;
+    return `
+    <div class="dash-top"><div><h1>SeoulFire Grill Club</h1><p class="sub">Points on dinners, quiet rewards — no games.</p></div></div>
+    <div class="dash-grid">
+      <div>
+        <div class="loyalty-card">
+          <small>${lo.program} · Member since 2025</small>
+          <div class="pts">${lo.points.toLocaleString()} <span style="font-size:14px;letter-spacing:.08em">PTS</span></div>
+          <div class="tier-meter"><i style="width:${Math.min(100, Math.round(lo.points / lo.nextRewardAt * 100))}%"></i></div>
+          <div class="row"><span>Points earned all-time</span><b>${lo.earned.toLocaleString()}</b></div>
+          <div class="row" style="margin-top:6px"><span>Points redeemed</span><b>${lo.redeemed.toLocaleString()}</b></div>
+        </div>
+        <div class="panel" style="margin-top:20px">
+          <div class="panel-head"><h3>Points history</h3></div>
+          <div class="ledger">
+            ${lo.history.map(h => `
+              <div class="ledger-row">
+                <span class="lg-date">${h.date}</span>
+                <div class="lg-desc"><b>${h.desc}</b><span>${h.ref}</span></div>
+                <span class="lg-pts ${h.pts < 0 ? 'neg' : ''}">${h.pts > 0 ? '+' : ''}${h.pts} pts</span>
+                <span class="lg-bal">bal ${h.bal.toLocaleString()}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Available rewards</h3></div>
+        ${lo.rewards.map(rw => `
+          <div class="reward ${rw.ready ? '' : 'locked'}" style="margin-bottom:10px">
+            ${I.gift}
+            <div><b>${rw.name}</b><span>${rw.desc}</span></div>
+            <button class="btn btn-tonal btn-sm" data-redeem="${rw.name}" ${rw.ready ? '' : 'disabled'}>${rw.cost} pts</button>
+          </div>`).join('')}
+        <div class="notice" style="margin-top:16px"><h4>How points work</h4><p>1 point per $1 on dinner. Rewards apply to a future visit; tell your server before ordering.</p></div>
+      </div>
+    </div>`;
+  };
+
+  VIEWS.payments = () => `
+    <div class="dash-top"><div><h1>Payments</h1><p class="sub">Transactions from your visits, handled by our payment provider.</p></div></div>
+    <div class="pay-summary">
+      <div class="panel"><small>Year to date</small><b>$957.25</b></div>
+      <div class="panel"><small>Visits paid</small><b>4</b></div>
+      <div class="panel"><small>Avg. per visit</small><b>$239.31</b></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Payment history</h3></div>
+      ${SF.DATA.payments.map(p => `
+        <div class="record">
+          <div class="r-main">
+            <b>${p.desc}</b>
+            <span>${p.date} · ${p.ref} · ${p.method}</span>
+          </div>
+          <div class="r-side">
+            <span class="status-pill status-${p.status.toLowerCase()}">${p.status}</span>
+            <b class="price">${p.amount}</b>
+            <a class="arrow-link" href="#" onclick="return false" style="font-size:12.5px">Receipt ${I.arrow}</a>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="panel" style="margin-top:20px">
+      <div class="panel-head"><h3>Saved payment methods</h3></div>
+      <div class="pm-card">
+        <span class="pm-chip ember">${I.wallet}</span>
+        <div><b>Visa ending 4021</b><span>Expires 08/29 · default</span></div>
+        <a class="btn btn-outline btn-sm" href="#" onclick="return false">Manage</a>
+      </div>
+      <div class="pm-note">${I.shield}<p>Card details are stored and processed by our PCI-compliant payment provider — the restaurant never sees or stores your full card number.</p></div>
+    </div>`;
+
+  VIEWS.visits = () => `
+    <div class="dash-top"><div><h1>Past visits</h1><p class="sub">Your dining history, newest first.</p></div></div>
+    <div class="panel"><div class="timeline">
+      ${SF.DATA.visits.map(v => `
+        <article>
+          <h4>${v.date} · ${v.party} guests</h4>
+          <div class="tl-meta"><span>${v.ref}</span><span>+${v.points} pts</span></div>
+          ${v.dishes.length ? `<div class="tl-dishes">${v.dishes.map(d => `<span>${d}</span>`).join('')}</div>` : ''}
+          <div style="margin-top:10px"><a class="arrow-link" href="#" onclick="return false" style="font-size:13px">View receipt ${I.arrow}</a></div>
+        </article>`).join('')}
+    </div></div>`;
+
+  VIEWS.profile = () => `
+    <div class="dash-top"><div><h1>Profile</h1><p class="sub">How we set your table.</p></div></div>
+    <div class="panel" style="max-width:640px">
+      <div class="profile-head">
+        <span class="avatar">MK</span>
+        <div><b style="font-size:17px">Min-jun Kim</b><br><span style="color:var(--muted);font-size:13px">Grill Club member since March 2025</span></div>
+      </div>
+      <form data-validate data-success="Profile saved.">
+        <div class="form-grid">
+          <div class="field"><label>First name</label><input value="Min-jun" required></div>
+          <div class="field"><label>Last name</label><input value="Kim" required></div>
+          <div class="field"><label>Email</label><input type="email" value="minjun@example.com" required></div>
+          <div class="field"><label>Phone</label><input type="tel" value="(213) 555-0140"></div>
+          <div class="field full"><label>Birthday <span class="hint">(for your birthday bonus)</span></label><input type="date" value="1990-04-12"></div>
+        </div>
+        <button class="btn btn-primary" type="submit" style="margin-top:18px">Save profile</button>
+      </form>
+    </div>`;
+
+  VIEWS.settings = () => `
+    <div class="dash-top"><div><h1>Settings</h1><p class="sub">Preferences for My Table.</p></div></div>
+    <div class="dash-grid">
+      <div class="panel">
+        <div class="panel-head"><h3>Appearance</h3></div>
+        <div class="set-row"><div><b>Dark theme</b><span>Easier on the eyes after the late seating.</span></div>
+          <label class="switch"><input type="checkbox" id="setDark" ${document.body.classList.contains('dark') ? 'checked' : ''}><i></i></label></div>
+        <div class="set-row"><div><b>RTL layout</b><span>Right-to-left interface direction.</span></div>
+          <label class="switch"><input type="checkbox" id="setRtl" ${document.documentElement.dir === 'rtl' ? 'checked' : ''}><i></i></label></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Notifications</h3></div>
+        <div class="set-row"><div><b>Reservation reminders</b><span>Email 24 hours before your table.</span></div>
+          <label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="set-row"><div><b>Grill Club updates</b><span>Points summaries and reward nudges.</span></div>
+          <label class="switch"><input type="checkbox" checked><i></i></label></div>
+        <div class="set-row"><div><b>Menu letter</b><span>Monthly — new cuts, new sets, events.</span></div>
+          <label class="switch"><input type="checkbox"><i></i></label></div>
+      </div>
+    </div>`;
+
+  /* ---------- bindings per view ---------- */
+  const BIND = {};
+  const resState = { party: null, date: null, time: null, seat: 'standard' };
+
+  BIND.overview = () => {
+    root.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); show(b.dataset.goto); }));
+    bindModifyCancel(root);
+  };
+  BIND.reservations = () => { bindModifyCancel(root); root.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); show(b.dataset.goto); })); };
+  BIND.menu = () => {
+    $('#menuSeg').addEventListener('click', e => {
+      const b = e.target.closest('[data-mcat]'); if (!b) return;
+      $('#menuSeg').querySelectorAll('button').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const f = b.dataset.mcat;
+      $('#menuGrid').querySelectorAll('.menu-card').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.category === f) ? '' : 'none';
+      });
+    });
+    bindFavToggles(root);
+  };
+  BIND.favorites = () => bindFavToggles(root);
+  BIND.loyalty = () => root.querySelectorAll('[data-redeem]').forEach(b => b.addEventListener('click', () => toast(`Demo: ${b.dataset.redeem} would be redeemed at your next visit.`)));
+  BIND.payments = () => { };
+  BIND.visits = () => { };
+  BIND.profile = () => { };
+  BIND.settings = () => {
+    $('#setDark').addEventListener('change', e => {
+      document.body.classList.toggle('dark', e.target.checked);
+      store.set('theme', e.target.checked ? 'dark' : 'light');
+      $('#themeBtn').innerHTML = e.target.checked ? I.sun : I.moon;
+    });
+    $('#setRtl').addEventListener('change', e => {
+      if (window.setRtl) {
+        window.setRtl(e.target.checked ? 'rtl' : 'ltr');
+      } else {
+        document.documentElement.dir = e.target.checked ? 'rtl' : 'ltr';
+        store.set('dir', document.documentElement.dir);
+      }
+    });
+  };
+  BIND.reserve = () => {
+    const pg = $('#dParty');
+    pg.innerHTML = [2, 3, 4, 5, 6, 8, 10, '12+'].map(n => `<button type="button" class="slot" data-party="${n}"><b>${n}</b><small>${n === '12+' ? 'call us' : 'guests'}</small></button>`).join('');
+    const sg = $('#dSeat');
+    sg.innerHTML = SF.DATA.seating.map(s => `<button type="button" class="seat-card ${s.id === 'standard' ? 'sel' : ''}" data-seat="${s.id}"><b>${s.name}</b><span>${s.desc}</span></button>`).join('');
+
+    const review = () => {
+      $('#dReview').innerHTML = `
+        <div><dt>Party</dt><dd>${resState.party || '—'}</dd></div>
+        <div><dt>Date</dt><dd>${resState.date ? fmt(resState.date) : '—'}</dd></div>
+        <div><dt>Time</dt><dd>${resState.time || '—'}</dd></div>
+        <div><dt>Seating</dt><dd>${seatName(resState.seat)}</dd></div>`;
+    };
+    const slots = () => {
+      const g = $('#dSlots');
+      if (!resState.date || !resState.party) { g.innerHTML = '<p class="hint" style="color:var(--muted)">Pick a party size and date first.</p>'; return; }
+      const av = SF.availability(resState.date, resState.party);
+      g.innerHTML = av.length ? av.map(t => `<button type="button" class="slot ${resState.time === t ? 'sel' : ''}" data-time="${t}">${t}</button>`).join('')
+        : '<div class="notice" style="margin:0"><h4>Fully committed that night</h4><p>Try another date — or call us for the waitlist.</p></div>';
+    };
+    pg.addEventListener('click', e => {
+      const b = e.target.closest('[data-party]'); if (!b) return;
+      pg.querySelectorAll('.slot').forEach(x => x.classList.remove('sel')); b.classList.add('sel');
+      resState.party = b.dataset.party === '12+' ? '12+' : +b.dataset.party;
+      slots(); review();
+    });
+    $('#dDate').addEventListener('change', e => {
+      resState.date = e.target.value;
+      const d = new Date(e.target.value + 'T12:00:00');
+      const info = $('#dDateInfo');
+      if (d.getDay() === 1) { info.style.display = ''; info.innerHTML = '<h4>Closed Mondays</h4><p>The grill rests. Pick another night.</p>'; resState.date = null; }
+      else info.style.display = 'none';
+      slots(); review();
+    });
+    $('#dSlots').addEventListener('click', e => {
+      const b = e.target.closest('[data-time]'); if (!b) return;
+      $('#dSlots').querySelectorAll('.slot').forEach(x => x.classList.remove('sel')); b.classList.add('sel');
+      resState.time = b.dataset.time; review();
+    });
+    sg.addEventListener('click', e => {
+      const b = e.target.closest('[data-seat]'); if (!b) return;
+      sg.querySelectorAll('.seat-card').forEach(x => x.classList.remove('sel')); b.classList.add('sel');
+      resState.seat = b.dataset.seat; review();
+    });
+    $('#dConfirm').addEventListener('click', () => {
+      if (!resState.party) return toast('Choose your party size.');
+      if (!resState.date) return toast('Pick a date.');
+      if (!resState.time) return toast('Choose an available time.');
+      const ref = 'SF-' + String(Math.floor(1000 + Math.random() * 9000));
+      reservations.unshift({ ref, name: $('#dName').value.trim() || 'Guest', party: resState.party, date: resState.date, time: resState.time, seat: resState.seat, status: 'Confirmed' });
+      saveRes();
+      toast(`Table confirmed — ${ref}. See you ${fmt(resState.date)}.`);
+      show('overview');
+    });
+    slots(); review();
+  };
+
+  /* ---------- shared bind helpers ---------- */
+  function bindModifyCancel(scope) {
+    scope.querySelectorAll('[data-modify]').forEach(b => b.addEventListener('click', () => {
+      show('reserve');
+      toast('Update the details below — your changes replace the old table.');
+    }));
+    scope.querySelectorAll('[data-cancel]').forEach(b => b.addEventListener('click', () => {
+      const ref = b.dataset.cancel;
+      const r = reservations.find(x => x.ref === ref);
+      if (!r) return;
+      const dt = new Date(r.date + 'T12:00:00');
+      const hrs = (dt - new Date()) / 36e5;
+      if (hrs < 4) { toast('This table is inside the 4-hour window — call (213) 555-0140 to cancel.'); return; }
+      reservations = reservations.filter(x => x.ref !== ref);
+      saveRes();
+      toast(`Reservation ${ref} cancelled. The coals will wait for next time.`);
+      show('reservations');
+    }));
+  }
+  function bindFavToggles(scope) {
+    scope.querySelectorAll('[data-fav]').forEach(b => b.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      const on = sfFavs.toggle(b.dataset.fav);
+      b.classList.toggle('on', on);
+      toast(on ? 'Saved to Favorites.' : 'Removed from Favorites.');
+    }));
+  }
+
+  /* ---------- boot ---------- */
+  const initial = (location.hash || '#overview').slice(1);
+  show(NAV.some(n => n[0] === initial) ? initial : 'overview');
+  addEventListener('hashchange', () => {
+    const v = location.hash.slice(1);
+    if (v && v !== (document.querySelector('#dashNav a.active') || {}).dataset?.view && NAV.some(n => n[0] === v)) show(v);
+  });
+})();
+</script>
+</body>
+</html>

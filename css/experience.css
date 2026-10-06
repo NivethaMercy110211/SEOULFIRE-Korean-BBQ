@@ -1,0 +1,98 @@
+/* experience.css — BBQ experience sequence enhancements */
+.xp-progress {
+  position: static; background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  display: flex; gap: 6px; overflow-x: auto; padding: 12px max(20px, calc((100% - 1180px) / 2));
+  scrollbar-width: none;
+}
+.xp-progress::-webkit-scrollbar { display: none; }
+.xp-progress a {
+  flex: none; padding: 9px 16px; border-radius: 99px; font-weight: 600; font-size: 13px;
+  color: var(--muted); border: 1px solid var(--line); background: var(--card); transition: .2s;
+}
+.xp-progress a:hover { border-color: var(--ember); color: var(--ember); }
+body.dark .xp-progress a:hover { color: var(--flame); }
+
+/* Keep every experience-step description aligned to a consistent three-line block. */
+.xp-row .xp-copy p {
+  max-width: 32ch;
+  line-height: 1.6;
+  min-height: 4.8em;
+  max-height: 4.8em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.xp-row .xp-copy .xp-detail {
+  max-width: 36ch;
+  height: auto;
+  min-height: 0;
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+  display: block;
+  overflow: visible;
+}
+.xp-detail b { color: var(--ink); }
+.xp-row#fire .xp-copy h3 { font-size: clamp(22px, 2vw, 28px); white-space: nowrap; }
+
+.xp-dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.xp-dodont .panel h4 { display: flex; align-items: center; gap: 9px; margin: 0 0 12px; font-size: 15px; }
+.xp-dodont .panel ul { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; display: grid; gap: 8px; }
+.dot-do { width: 9px; height: 9px; border-radius: 50%; background: #2E7D4E; flex: none; }
+.dot-dont { width: 9px; height: 9px; border-radius: 50%; background: #B94727; flex: none; }
+
+.xp-tip { display: flex; gap: 14px; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+.xp-tip svg { width: 20px; height: 20px; color: var(--ember); flex: none; margin-top: 3px; }
+.xp-tip > div { min-width: 0; }
+body.dark .xp-tip svg { color: var(--flame); }
+.xp-tip b { display: block; margin-bottom: 3px; }
+.xp-tip p { margin: 0; min-height: 3.1em; color: var(--muted); font-size: 13.5px; line-height: 1.55; }
+.xp-tips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+/* Alternating opposite side grid alignment for experience rows */
+@media (min-width: 1025px) {
+  .xp-row.flip,
+  .xp-row:nth-child(even) {
+    grid-template-columns: 120px 1.05fr 1fr;
+  }
+  .xp-row.flip .xp-num,
+  .xp-row:nth-child(even) .xp-num {
+    order: 1;
+  }
+  .xp-row.flip .xp-media,
+  .xp-row:nth-child(even) .xp-media {
+    order: 2;
+  }
+  .xp-row.flip .xp-copy,
+  .xp-row:nth-child(even) .xp-copy {
+    order: 3;
+    padding-left: clamp(10px, 2.5vw, 36px);
+  }
+}
+
+/* RTL support for alternating rows */
+@media (min-width: 1025px) {
+  [dir=rtl] .xp-row.flip,
+  [dir=rtl] .xp-row:nth-child(even) {
+    grid-template-columns: 1fr 1.05fr 120px;
+  }
+  [dir=rtl] .xp-row.flip .xp-num,
+  [dir=rtl] .xp-row:nth-child(even) .xp-num {
+    order: 3;
+  }
+  [dir=rtl] .xp-row.flip .xp-media,
+  [dir=rtl] .xp-row:nth-child(even) .xp-media {
+    order: 2;
+  }
+  [dir=rtl] .xp-row.flip .xp-copy,
+  [dir=rtl] .xp-row:nth-child(even) .xp-copy {
+    order: 1;
+    padding-left: 0;
+    padding-right: clamp(10px, 2.5vw, 36px);
+  }
+}

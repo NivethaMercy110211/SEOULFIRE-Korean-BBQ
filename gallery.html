@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1E1D1B">
+<title>Gallery — SEOULFIRE Korean BBQ</title>
+<meta name="description" content="Flames, sears, ssam and shared tables — scenes from the SEOULFIRE dining room.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='50' width='100' height='100' fill='%231e1d1b'/><text x='50' y='70' font-size='55' text-anchor='middle' fill='%23d85a32'>火</text></svg>">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/gallery.css">
+<link rel="stylesheet" href="css/footer.css">
+<link rel="stylesheet" href="css/dark-theme.css">
+<link rel="stylesheet" href="css/rtl.css">
+<link rel="stylesheet" href="css/desktop.css">
+<link rel="stylesheet" href="css/tablet.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<main id="main">
+
+  <section class="page-hero" style="background-image:url('assets/images/hero/gallery.png')" data-word="GALLERY">
+    <div class="container">
+      <span class="crumbs">Gallery</span>
+      <h1>The Atmosphere</h1>
+      <p class="lead">Flames, sears, ssam, and the moments that bring us together.</p>
+    </div>
+  </section>
+
+  <section class="gallery-grid-section">
+    <div class="container">
+      <div class="filters" role="tablist" aria-label="Gallery filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="grill">Grill</button>
+        <button class="filter" data-filter="meat">Meat</button>
+        <button class="filter" data-filter="banchan">Banchan</button>
+        <button class="filter" data-filter="tables">Tables</button>
+        <button class="filter" data-filter="people">People</button>
+        <button class="filter" data-filter="interior">Interior</button>
+      </div>
+
+      <div class="gallery-masonry" id="galleryGrid">
+        <figure class="gallery-item" data-category="meat" data-title="Marbled ribeye hitting the grate"><img src="assets/images/gallery/g2.jpg" alt="Marbled ribeye searing on the grill" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="interior" data-title="The dining room after 9 PM"><img src="assets/images/gallery/g5.jpg" alt="Dining room glowing at night" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="tables" data-title="The full Korean BBQ table"><img src="assets/images/gallery/g3.jpg" alt="Overhead view of a full Korean BBQ table" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="grill" data-title="Ssam in hand over the coals"><img src="assets/images/gallery/g4.jpg" alt="Hand holding a ssam wrap over the grill" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="people" data-title="Everyone reaches at once"><img src="assets/images/gallery/g6.jpg" alt="Friends reaching toward the shared grill" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="grill" data-title="Flame study No. 3"><img src="assets/images/gallery/g7.jpg" alt="Flames through the grill grate" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="banchan" data-title="Twelve dishes, one center"><img src="assets/images/gallery/g8.jpg" alt="Overhead banchan orbit around the grill" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="tables" data-title="Set before the storm"><img src="assets/images/gallery/g9.jpg" alt="A perfectly set grill table" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="interior" data-title="Arches and pendant light"><img src="assets/images/gallery/g10.jpg" alt="Restaurant architecture with pendant lights" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="tables" data-title="The private room"><img src="assets/images/gallery/g11.jpg" alt="Private dining room with grill" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="people" data-title="One more round"><img src="assets/images/gallery/g12.jpg" alt="Late night drinks at the table" loading="lazy"></figure>
+        <figure class="gallery-item" data-category="meat" data-title="First cut of the night"><img src="assets/images/gallery/g1.jpg" alt="First cuts on the grill at dusk" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="gallery-cta-section">
+    <div class="cta" style="margin:40px auto 0;width:min(1320px,calc(100% - 30px));border-radius:30px;padding:84px 7%;color:#fff;position:relative;isolation:isolate;background:url('assets/images/cta/gallery-cta.png') center/cover">
+      <div style="position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(19,18,17,.9),rgba(19,18,17,.3))"></div>
+      <span class="kicker" style="color:#FF9A77">Your turn</span>
+      <h2 style="font:800 clamp(2rem,4.6vw,4rem)/1 'Manrope';letter-spacing:-.05em;margin:14px 0">Every photo started<br>with a reservation.</h2>
+      <a class="btn btn-primary btn-lg" href="reservations.html" style="margin-top:24px">Reserve a table →</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="icon-btn lightbox-close" aria-label="Close"></button>
+  <figure>
+    <img src="" alt="">
+    <figcaption><span></span><small>Press Esc or tap anywhere to close</small></figcaption>
+  </figure>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+/* set the close icon (icon library lives in main.js as a global const) */
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('.lightbox-close');
+  if (btn && typeof I !== 'undefined') btn.innerHTML = I.x;
+});
+</script>
+</body>
+</html>

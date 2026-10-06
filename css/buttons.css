@@ -1,0 +1,22 @@
+/* buttons.css — supplementary button styles (core .btn lives in main.css) */
+.btn-outline-light { border: 1.5px solid rgba(255, 247, 236, .55); color: #FFF7EC; background: rgba(255, 247, 236, .06); backdrop-filter: blur(6px); }
+.btn-outline-light:hover { border-color: #FFF7EC; background: rgba(255, 247, 236, .14); transform: translateY(-2px); }
+
+.btn-outline { border: 1.5px solid var(--line); background: var(--card); color: var(--ink); }
+.btn-outline:hover { border-color: var(--ember); color: var(--ember); transform: translateY(-2px); }
+body.dark .btn-outline:hover { color: var(--flame); border-color: var(--flame); }
+
+.btn-tonal { background: rgba(216, 90, 50, .12); border-color: transparent; color: var(--ember); }
+.btn-tonal:hover { background: rgba(216, 90, 50, .22); transform: translateY(-2px); }
+body.dark .btn-tonal { color: var(--flame); }
+
+.btn-danger { background: rgba(185, 71, 39, .12); border-color: transparent; color: #B94727; }
+.btn-danger:hover { background: rgba(185, 71, 39, .22); }
+body.dark .btn-danger { color: #FF8A61; }
+
+.btn-icon { width: 46px; height: 46px; padding: 0; border-radius: 14px; }
+.btn-icon svg { width: 18px; height: 18px; }
+
+.link-plain { font-weight: 700; color: var(--ember); }
+body.dark .link-plain { color: var(--flame); }
+.link-plain:hover { text-decoration: underline; }

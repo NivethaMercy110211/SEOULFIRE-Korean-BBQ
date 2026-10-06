@@ -1,0 +1,59 @@
+/* editorial.css — magazine-style storytelling sections */
+.editorial { display: grid; grid-template-columns: 1.2fr .8fr; min-height: 600px; background: var(--charcoal); color: var(--cream); }
+body.dark .editorial { background: #0A0908; }
+.editorial-media { position: relative; overflow: hidden; }
+.editorial-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .32s ease, transform .45s ease; }
+.editorial-badge { position: absolute; bottom: 24px; left: 24px; z-index: 2; pointer-events: none; }
+.editorial-badge .badge { box-shadow: 0 4px 18px rgba(0, 0, 0, .45); backdrop-filter: blur(8px); background: rgba(23, 21, 19, .9); border: 1px solid rgba(255, 255, 255, .15); font-size: 12.5px; padding: 7px 14px; }
+.editorial-copy { padding: clamp(36px, 6vw, 80px); display: flex; flex-direction: column; justify-content: center; }
+.editorial-copy .kicker { color: #FF8A61; }
+.editorial-copy h2 { font: 800 clamp(2rem, 4.4vw, 3.8rem)/1.02 'Manrope'; letter-spacing: -.05em; margin: 12px 0 16px; }
+.editorial-copy p { color: #D6CABB; max-width: 480px; margin: 0 0 10px; }
+.editorial.flip { grid-template-columns: .8fr 1.2fr; }
+.editorial.flip .editorial-media { order: 2; }
+
+/* sequence steps (Home 1 ritual / Experience page) */
+.steps-flow { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 8px; }
+.step-chip {
+  border: 1px solid #514941; padding: 6px 14px 6px 8px; border-radius: 99px; font-weight: 600; font-size: 13.5px;
+  display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 247, 236, .04); color: inherit;
+  cursor: pointer; transition: all .2s ease; font-family: inherit; line-height: 1; text-align: left;
+}
+.step-chip:hover, .step-chip.active {
+  background: rgba(216, 90, 50, .2); border-color: #FF8A61; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(216, 90, 50, .25);
+}
+.step-chip-thumb {
+  width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FF8A61; flex-shrink: 0;
+}
+.step-chip b { color: #FF8A61; font-family: 'Manrope'; font-weight: 800; }
+.step-chip::after { content: '→'; opacity: .45; margin-left: 2px; }
+.step-chip:last-child::after { content: none; }
+
+/* numbered feature rows (BBQ experience page) */
+.xp-row {
+  display: grid; grid-template-columns: 120px 1fr 1.05fr; gap: clamp(20px, 4vw, 60px);
+  align-items: center; padding: 54px 0; border-top: 1px solid var(--line);
+}
+.xp-num { font: 800 clamp(2.6rem, 5vw, 4.6rem)/1 'Manrope'; letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.6px var(--ember); }
+body.dark .xp-num { -webkit-text-stroke-color: #FF8A61; }
+.xp-copy h3 { font-size: clamp(22px, 2.6vw, 32px); margin: 8px 0 10px; font-weight: 800; }
+.xp-media { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
+.xp-media:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.xp-media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/2; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+.xp-media:hover img { transform: scale(1.03); }
+[dir=rtl] .xp-row { grid-template-columns: 1fr 1.05fr 120px; }
+[dir=rtl] .xp-row .xp-num { order: 3; }
+[dir=rtl] .xp-row .xp-copy { order: 2; }
+[dir=rtl] .xp-row .xp-media { order: 1; }
+
+/* stats strip */
+.stats-strip { display: flex; flex-wrap: wrap; gap: 40px 60px; padding: 40px 0; border-top: 1px solid var(--line); }
+.stat b { display: block; font: 800 clamp(2rem, 4vw, 3.2rem)/1 'Manrope'; letter-spacing: -.04em; }
+.stat span { color: var(--muted); font-size: 13.5px; text-transform: uppercase; letter-spacing: .12em; }
+
+/* editorial pull quote */
+.pull-quote {
+  font: 600 clamp(1.5rem, 3vw, 2.4rem)/1.35 'Manrope'; letter-spacing: -.02em; max-width: 900px;
+  border-left: 3px solid var(--ember); padding-left: 26px; margin: 0;
+}
+body.dark .pull-quote { border-color: #FF8A61; }
