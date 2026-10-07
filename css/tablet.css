@@ -29,6 +29,14 @@
   .grid-4, .grid-3, .grid-5 { grid-template-columns: repeat(2, 1fr); }
   .rail { grid-auto-columns: minmax(260px, 46vw); }
 
+  /* Keep the journey marquee moving smoothly on iPad and iPad Pro. */
+  #journeyRail {
+    display: flex;
+    width: max-content;
+    grid-auto-columns: unset;
+  }
+  #journeyRail > .card { flex: 0 0 clamp(260px, 34vw, 310px); }
+
   /* Keep the Tonight cards balanced on tablet instead of horizontally scrolling. */
   #tonight .rail {
     grid-auto-flow: row;
@@ -96,7 +104,7 @@
   .dash-drawer-btn { display: grid; }
   .dash-utility .dash-drawer-btn { margin-right: auto; }
   [dir=rtl] .dash-utility .dash-drawer-btn { margin-right: 0; margin-left: auto; }
-  .dash-sidebar-close { display: grid; position: absolute; top: 18px; right: 24px; width: 42px; height: 42px; color: #FFF7EC; font-size: 28px; line-height: 1; }
+  .dash-sidebar-close { display: grid; position: absolute; top: 18px; right: 24px; width: 42px; height: 42px; color: var(--ink); font-size: 28px; line-height: 1; }
   [dir=rtl] .dash-sidebar-close { right: auto; left: 24px; }
   .dash-grid, .dash-grid-3 { grid-template-columns: 1fr; }
   .dash-menu-grid { grid-template-columns: 1fr 1fr; }

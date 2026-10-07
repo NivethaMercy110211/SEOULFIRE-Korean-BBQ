@@ -1,11 +1,15 @@
 /* dashboard.css — My Table guest hub */
 .dash { padding-top: 0; }
 .sidebar { top: 0; height: 100vh; }
-.sidebar .dash-brand { padding: 18px 8px 42px; border-bottom: 1px solid #2A2521; }
+.sidebar .dash-brand { padding: 18px 8px 42px; border-bottom: 1px solid var(--line); color: var(--ink); }
 .dash-brand .brand-mark { width: 44px; height: 44px; }
 .sidebar nav { margin-top: 30px; }
-.sidebar nav a[data-view="logout"] { margin-top: auto; color: #FFB08C; background: rgba(216, 90, 50, .12); border: 1px solid rgba(216, 90, 50, .28); }
-.sidebar nav a[data-view="logout"]:hover { background: rgba(216, 90, 50, .24); color: #FFFFFF; }
+.sidebar nav a[data-view="logout"] { margin-top: auto; color: var(--ember); background: rgba(216, 90, 50, .12); border: 1px solid rgba(216, 90, 50, .28); }
+.sidebar nav a[data-view="logout"]:hover { background: rgba(216, 90, 50, .24); color: var(--ink); }
+body.dark .sidebar .dash-brand { border-color: #2A2521; color: #FFF7EC; }
+body.dark .sidebar nav a[data-view="logout"] { color: #FFB08C; }
+body.dark .sidebar nav a[data-view="logout"]:hover { color: #FFFFFF; }
+body.dash-page:not(.dark) .sidebar .dash-sidebar-close { color: var(--ink); border-color: var(--line); background: var(--card); }
 .dash-utility {
   position: sticky; top: 0; z-index: 30;
   display: flex; justify-content: flex-end; align-items: center; gap: 14px;
@@ -80,6 +84,8 @@ body.dark .next-table { background: #1D1B19; border: 1px solid #403A35; }
 .dash-main .panel h3 { font-size: 18px; margin: 0 0 4px; }
 .dash-main .panel .panel-sub { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; }
 .dashboard-booking .booking-main { gap: 20px; padding-bottom: 28px; }
+.dashboard-confirm-action { display: flex; justify-content: flex-end; }
+.settings-grid { grid-template-columns: 1fr; }
 .panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-bottom: 16px; }
 .panel-head h3 { margin: 0; }
 .panel-head .arrow-link { font-size: 13px; }

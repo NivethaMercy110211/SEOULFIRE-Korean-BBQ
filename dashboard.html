@@ -278,7 +278,7 @@
           <h3>6 · Review</h3>
           <dl class="review-list" id="dReview"></dl>
         </div>
-        <div style="display:flex;justify-content:flex-end">
+        <div class="dashboard-confirm-action">
           <button class="btn btn-primary btn-lg" id="dConfirm">7 · Confirm reservation →</button>
         </div>
       </div>
@@ -428,7 +428,7 @@
           <div class="field"><label>Last name</label><input value="Kim" required></div>
           <div class="field"><label>Email</label><input type="email" value="minjun@example.com" required></div>
           <div class="field"><label>Phone</label><input type="tel" value="(213) 555-0140"></div>
-          <div class="field full"><label>Birthday <span class="hint">(for your birthday bonus)</span></label><input type="date" value="1990-04-12"></div>
+          <div class="field full"><label for="profileBirthday">Birthday <span class="hint">(for your birthday bonus)</span></label><input id="profileBirthday" type="date" value="1990-04-12"></div>
         </div>
         <button class="btn btn-primary" type="submit" style="margin-top:18px">Save profile</button>
       </form>
@@ -436,7 +436,7 @@
 
   VIEWS.settings = () => `
     <div class="dash-top"><div><h1>Settings</h1><p class="sub">Preferences for My Table.</p></div></div>
-    <div class="dash-grid">
+    <div class="dash-grid settings-grid">
       <div class="panel">
         <div class="panel-head"><h3>Appearance</h3></div>
         <div class="set-row"><div><b>Dark theme</b><span>Easier on the eyes after the late seating.</span></div>
@@ -514,7 +514,7 @@
       if (!resState.date || !resState.party) { g.innerHTML = '<p class="hint" style="color:var(--muted)">Pick a party size and date first.</p>'; return; }
       const av = SF.availability(resState.date, resState.party);
       g.innerHTML = av.length ? av.map(t => `<button type="button" class="slot ${resState.time === t ? 'sel' : ''}" data-time="${t}">${t}</button>`).join('')
-        : '<div class="notice" style="margin:0"><h4>Fully committed that night</h4><p>Try another date — or call us for the waitlist.</p></div>';
+        : '<div class="notice fully-booked-notice"><h4>Fully committed that night</h4><p>Try another date — or call us for the waitlist.</p></div>';
     };
     pg.addEventListener('click', e => {
       const b = e.target.closest('[data-party]'); if (!b) return;

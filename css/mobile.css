@@ -106,9 +106,8 @@
   /* Home cards are shown as a clear vertical list rather than a clipped horizontal rail. */
   #tonight .rail { grid-auto-flow: row; grid-template-columns: 1fr; grid-auto-columns: auto; overflow: visible; padding-bottom: 0; }
   #tonight .rail > .card { width: 100%; }
-  #journeyRail { grid-auto-flow: row; grid-template-columns: 1fr; grid-auto-columns: auto; overflow: visible; padding-bottom: 0; }
-  #journeyRail > .card { width: 100%; }
-  .journey-controls { display: none; }
+  #journeyRail { display: flex; width: max-content; gap: 14px; overflow: visible; padding: 0; }
+  #journeyRail > .card { flex: 0 0 min(82vw, 310px); width: auto; }
   #hospitality .grid { gap: 0; }
   #hospitality .grid > div:last-child { width: 100%; min-width: 0; box-sizing: border-box; padding: 28px !important; }
   #hospitality .grid > div:last-child p { max-width: 100%; overflow-wrap: anywhere; }
@@ -168,6 +167,11 @@
     display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 16px !important;
+  }
+  .favorites-menu-grid > :last-child:nth-child(odd) {
+    grid-column: auto !important;
+    width: 100% !important;
+    justify-self: stretch !important;
   }
   .grid-3 > :last-child:nth-child(odd),
   .grid-5 > :last-child:nth-child(odd),
@@ -267,18 +271,26 @@
   .dash { display: block; padding-top: 0; }
   .sidebar {
     position: fixed; inset: 0; z-index: 58; height: 100vh;
-    padding: 14px 16px 18px; border-right: 0; border-bottom: 1px solid #2A2521;
+    padding: 14px 16px 18px; border-right: 0; border-bottom: 1px solid var(--line);
     box-shadow: var(--shadow); display: none;
   }
   .sidebar.open { display: flex; }
   .sidebar.open .dash-brand { justify-content: flex-start; padding-inline: 0; }
-  .dash-sidebar-close { display: grid; position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; color: #FFF7EC; font-size: 28px; line-height: 1; }
+  .dash-sidebar-close { display: grid; position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; color: var(--ink); font-size: 28px; line-height: 1; }
   [dir=rtl] .dash-sidebar-close { right: auto; left: 16px; }
   .sidebar nav { margin-top: 14px; }
   .sidebar .brand-text, .sidebar .side-foot, .sidebar nav a span { display: inline; }
   .sidebar nav a { justify-content: flex-start; }
   .dash-drawer-btn { display: grid; }
   .dash-main { padding: 26px 16px 70px; }
+  .dash-top:has(> .btn[data-goto="reserve"]) {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+  }
+  .dash-top > .btn[data-goto="reserve"] { margin-inline: auto; }
+  .dashboard-confirm-action { justify-content: center; }
+  .dashboard-confirm-action .btn { max-width: 100%; text-align: center; }
   #menuSeg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); flex-wrap: unset; overflow: visible; gap: 8px; padding: 8px; border-radius: 20px; }
   #menuSeg button { min-width: 0; white-space: nowrap; padding: 10px 6px; border-radius: 12px; }
   .next-table {
@@ -353,6 +365,11 @@
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
+  .gallery-hero-strip > .grid { width: 100%; }
+  .gallery-hero-strip > .grid > .tile {
+    width: 100% !important;
+    min-height: 300px !important;
+  }
   .gallery-item {
     width: 100% !important;
     height: clamp(280px, 70vw, 360px) !important;
@@ -418,6 +435,10 @@
   .contact-grid, .policy-grid, .xp-tips, .earn-grid,
   .footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .dash-grid > .panel > .grid.grid-2 {
+    grid-template-columns: 1fr !important;
   }
 
   .footer-grid > :first-child { grid-column: span 2; }

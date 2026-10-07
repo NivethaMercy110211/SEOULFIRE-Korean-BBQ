@@ -10,6 +10,15 @@
 [dir=rtl] .review-list dd { text-align: start; }
 [dir=rtl] .footer-grid { direction: rtl; }
 [dir=rtl] .next-table-actions { text-align: right; }
+[dir=rtl] input[type="tel"] { direction: ltr; text-align: right; }
+[dir=rtl] input[type="date"] {
+  direction: ltr;
+  text-align: left;
+}
+[dir=rtl] #profileBirthday {
+  direction: rtl;
+  text-align: right;
+}
 [dir=rtl] .timeline { border-left: 0; border-right: 1px solid var(--line); padding-left: 0; padding-right: 26px; }
 [dir=rtl] .timeline article::before { left: auto; right: -32px; }
 [dir=rtl] .notice { border-left: 0; border-right: 3px solid var(--ember); }
@@ -26,9 +35,8 @@
 [dir=rtl] .auth-brand-row { flex-direction: row-reverse; }
 
 /* Dashboard RTL layout polish */
-[dir=rtl] .sidebar { border-right: 0; border-left: 1px solid #2A2521; }
+[dir=rtl] .sidebar { border-right: 0; border-left: 1px solid var(--line); }
 [dir=rtl] .reward .btn { margin-left: 0; margin-right: auto; }
 [dir=rtl] .loyalty-card::after { right: auto; left: -18px; }
 [dir=rtl] .next-table::before { background: radial-gradient(620px 300px at 18% 18%, rgba(216, 90, 50, .28), transparent 62%); }
-[dir=rtl] .dash-top { flex-direction: row-reverse; }
-
+[dir=rtl] .dash-top { flex-direction: row; text-align: right; }

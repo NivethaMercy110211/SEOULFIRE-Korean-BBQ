@@ -362,28 +362,19 @@ document.querySelectorAll('[data-password-toggle]').forEach(button => {
   });
 });
 
-/* ---------- Evening Journey Carousel ---------- */
+/* ---------- Evening Journey Marquee ---------- */
 (() => {
   const rail = document.querySelector('#journeyRail');
-  const prev = document.querySelector('#journeyPrev');
-  const next = document.querySelector('#journeyNext');
-  if (!rail || !prev || !next) return;
+  if (!rail) return;
 
-  const scrollAmount = () => {
-    const card = rail.querySelector('.card');
-    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
-    return card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
-  };
+  [...rail.children].forEach(card => {
+    const copy = card.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelectorAll('a, button, input, select, textarea').forEach(element => {
+      element.setAttribute('tabindex', '-1');
+    });
+    rail.appendChild(copy);
+  });
 
-  const updateControls = () => {
-    const maxScroll = rail.scrollWidth - rail.clientWidth;
-    prev.disabled = rail.scrollLeft <= 2;
-    next.disabled = rail.scrollLeft >= maxScroll - 2;
-  };
-
-  prev.addEventListener('click', () => rail.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
-  next.addEventListener('click', () => rail.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
-  rail.addEventListener('scroll', updateControls, { passive: true });
-  window.addEventListener('resize', updateControls);
-  updateControls();
+  rail.classList.add('is-moving');
 })();
