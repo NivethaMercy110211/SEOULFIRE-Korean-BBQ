@@ -7,6 +7,9 @@
 [dir=rtl] .editorial.flip .editorial-media { order: 0; }
 [dir=rtl] .steps-flow { flex-direction: row-reverse; }
 [dir=rtl] .menu-cat-nav, [dir=rtl] .xp-progress, [dir=rtl] .rail { direction: rtl; }
+[dir=rtl] .journey-marquee,
+[dir=rtl] .journey-rail { direction: ltr; }
+[dir=rtl] .journey-rail .card { direction: rtl; text-align: right; }
 [dir=rtl] .review-list dd { text-align: start; }
 [dir=rtl] .footer-grid { direction: rtl; }
 [dir=rtl] .next-table-actions { text-align: right; }

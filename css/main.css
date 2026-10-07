@@ -67,10 +67,11 @@ h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; letter-spacing: -.03em; }
 .container { width: min(1180px, calc(100% - 40px)); margin: auto; }
 .container-wide { width: min(1320px, calc(100% - 30px)); margin: auto; }
 .skip-link {
-  position: absolute; left: -9999px; top: 0; z-index: 100;
+  position: fixed; left: 0; top: 0; z-index: 100; transform: translateY(-150%);
   background: var(--charcoal); color: #fff; padding: 10px 16px; border-radius: 0 0 10px 0;
+  transition: transform .2s var(--ease);
 }
-.skip-link:focus { left: 0; }
+.skip-link:focus { transform: translateY(0); }
 
 /* ---------------- header ---------------- */
 .nav {
@@ -450,7 +451,13 @@ body.dark .price { color: var(--flame); }
 .rail > * { scroll-snap-align: start; }
 .rail::-webkit-scrollbar { height: 8px; }
 .rail::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
-.journey-marquee { width: 100%; overflow: hidden; padding: 4px 0; }
+.journey-marquee {
+  --journey-loop-offset: 9px;
+  position: relative;
+  width: 100%; max-width: 100%; min-width: 0; overflow: clip; padding: 4px 0;
+  contain: layout paint;
+  clip-path: inset(0);
+}
 .journey-rail {
   display: flex; width: max-content; gap: 18px; overflow: visible; padding: 0;
   will-change: transform;
@@ -463,7 +470,7 @@ body.dark .price { color: var(--flame); }
 }
 @keyframes journey-move-left {
   from { transform: translateX(0); }
-  to { transform: translateX(calc(-50% - 9px)); }
+  to { transform: translateX(calc(-50% - var(--journey-loop-offset))); }
 }
 @media (prefers-reduced-motion: reduce) {
   .journey-marquee { overflow-x: auto; scrollbar-width: thin; }
