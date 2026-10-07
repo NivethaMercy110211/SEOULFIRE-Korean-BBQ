@@ -37,6 +37,7 @@ body.dark .flow-steps span.done { color: var(--flame); }
 
 /* time slots */
 .slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+#dSlots > .hint { grid-column: 1 / -1; width: 100%; margin: 0; white-space: nowrap; }
 .slot {
   padding: 13px 8px; text-align: center; border-radius: 13px; border: 1px solid var(--line);
   background: var(--card); font-weight: 700; font-size: 14px; cursor: pointer; transition: .18s; color: var(--ink);
@@ -47,13 +48,13 @@ body.dark .flow-steps span.done { color: var(--flame); }
 .slot-grid .fully-booked-notice {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: minmax(165px, .7fr) 1.3fr;
+  grid-template-columns: 1fr;
   align-items: start;
-  gap: 20px;
+  gap: 6px;
   margin: 0;
 }
 .fully-booked-notice h4 { margin: 0; }
-.fully-booked-notice p { max-width: 48ch; }
+.fully-booked-notice p { max-width: 48ch; margin: 0; }
 
 @media (max-width: 640px) {
   .slot-grid .fully-booked-notice { grid-template-columns: 1fr; gap: 6px; }
