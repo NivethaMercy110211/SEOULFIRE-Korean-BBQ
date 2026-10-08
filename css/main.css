@@ -511,6 +511,7 @@ a.tile:hover img { transform: scale(1.04); }
 .tile-body { position: relative; z-index: 1; padding: 26px; color: #FFF7EC; text-shadow: 0 1px 3px rgba(0, 0, 0, .72); }
 .tile-body h3 { margin: 0 0 6px; font-size: 24px; font-weight: 700; }
 .tile-body p { margin: 0; font-size: 13.5px; color: #F0E7DC; max-width: 400px; }
+.tile-body .tile-copy-two-lines { max-width: 36ch; text-wrap: balance; }
 .tile-lg { min-height: 420px; }
 
 /* Home gallery stories: one feature tile beside two evenly spaced tiles. */
