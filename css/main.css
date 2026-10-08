@@ -103,8 +103,20 @@ body.auth-page .nav { position: sticky; }
 .links a:hover { opacity: 1; color: var(--flame); }
 .links a.active { opacity: 1; color: #FFF7EC; background: rgba(216, 90, 50, .16); }
 .actions { display: flex; align-items: center; gap: 10px; flex: none; }
-.login-link { font-weight: 600; font-size: 14px; padding: 9px 4px; opacity: .85; }
-.login-link:hover { opacity: 1; color: var(--flame); }
+.nav .actions > * { height: 40px; min-height: 40px; }
+.login-link,
+.mobile-login {
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255, 255, 255, .32); border-radius: 999px;
+  background: rgba(255, 255, 255, .07); color: #FFF7EC;
+  font-weight: 700; font-size: 13px; line-height: 1; white-space: nowrap;
+  box-sizing: border-box; transition: .2s var(--ease);
+}
+.login-link { padding: 0 16px; }
+.login-link:hover,
+.mobile-login:hover {
+  border-color: var(--flame); background: rgba(216, 90, 50, .14); color: var(--flame);
+}
 .icon-btn {
   border: 1px solid rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .06);
   color: inherit; border-radius: 50%; width: 40px; height: 40px; flex: none;
@@ -113,6 +125,13 @@ body.auth-page .nav { position: sticky; }
 .icon-btn:hover { border-color: var(--ember); color: var(--flame); }
 .icon-btn svg { width: 17px; height: 17px; }
 .menu-btn { display: none; }
+.menu-btn[aria-expanded="true"] {
+  border-color: #F06A43; background: #D85A32; color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .14);
+}
+.menu-btn[aria-expanded="true"]:hover {
+  border-color: #FF9A77; background: #B94727; color: #FFFFFF;
+}
 .mobile-menu-actions { display: none; }
 
 /* mobile nav drawer */

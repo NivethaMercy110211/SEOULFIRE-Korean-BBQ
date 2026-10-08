@@ -75,7 +75,7 @@ function buildHeader() {
       <a class="btn btn-primary btn-sm" href="dashboard.html">My Table</a>
       <button class="lang-pill" id="rtlBtn" aria-label="Toggle RTL/LTR" title="Toggle RTL layout"><span>RTL</span></button>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">${I.sun}</button>
-      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">${I.burger}</button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false">${I.burger}</button>
     </div>
   </div>
 </header>`;
@@ -175,8 +175,20 @@ if (store.get('dir', null) === 'rtl') {
 syncRtlUI(document.documentElement.dir || 'ltr');
 
 /* ---------- mobile nav ---------- */
-document.querySelector('#menuBtn')?.addEventListener('click', () => {
-  document.querySelector('#navLinks')?.classList.toggle('open');
+const menuBtn = document.querySelector('#menuBtn');
+const navLinks = document.querySelector('#navLinks');
+
+function setMenuState(isOpen) {
+  navLinks?.classList.toggle('open', isOpen);
+  if (!menuBtn) return;
+  menuBtn.innerHTML = isOpen ? I.x : I.burger;
+  menuBtn.setAttribute('aria-expanded', String(isOpen));
+  menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  menuBtn.setAttribute('title', isOpen ? 'Close menu' : 'Open menu');
+}
+
+menuBtn?.addEventListener('click', () => {
+  setMenuState(!navLinks?.classList.contains('open'));
 });
 
 /* ---------- nav scroll state + progress ---------- */
