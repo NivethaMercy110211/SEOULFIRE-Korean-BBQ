@@ -57,7 +57,7 @@ body.dash-page:not(.dark) .sidebar .dash-sidebar-close { color: var(--ink); bord
 .logout-dialog::backdrop { background: rgba(10, 9, 8, .72); backdrop-filter: blur(5px); }
 .logout-dialog-icon { width: 58px; height: 58px; display: grid; place-items: center; margin: 0 auto 18px; border-radius: 50%; color: #FFFFFF; background: var(--ember); }
 .logout-dialog-icon svg { width: 25px; height: 25px; }
-.logout-dialog h2 { margin: 0 0 10px; font-size: 26px; }
+.logout-dialog h2 { margin: 0 0 10px; font-size: 23px; }
 .logout-dialog p { margin: 0; color: var(--muted); }
 .logout-dialog-actions { display: flex; justify-content: center; gap: 10px; margin-top: 26px; }
 
@@ -72,7 +72,7 @@ body.dash-page:not(.dark) .sidebar .dash-sidebar-close { color: var(--ink); bord
 }
 body.dark .next-table { background: #1D1B19; border: 1px solid #403A35; }
 .next-table .kicker { color: #FF9A77; }
-.next-table h2 { font: 800 clamp(30px, 4vw, 46px)/1.02 'Manrope'; letter-spacing: -.045em; margin: 8px 0 22px; }
+.next-table h2 { font: 600 clamp(27px, 3.6vw, 41px)/1.06 'Manrope'; letter-spacing: -.04em; margin: 8px 0 22px; }
 .next-table .reservation-meta { display: flex; gap: 34px; flex-wrap: wrap; }
 .next-table .reservation-meta span { display: block; color: #A99F96; font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
 .next-table .reservation-meta b { font-size: 17px; font-family: 'Manrope'; }
@@ -81,7 +81,7 @@ body.dark .next-table { background: #1D1B19; border: 1px solid #403A35; }
 
 /* panels inside dash */
 .dash-main .panel { padding: 26px; }
-.dash-main .panel h3 { font-size: 18px; margin: 0 0 4px; }
+.dash-main .panel h3 { font-size: 17px; margin: 0 0 4px; }
 .dash-main .panel .panel-sub { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; }
 .dashboard-booking .booking-main { gap: 20px; padding-bottom: 28px; }
 .dashboard-confirm-action { display: flex; justify-content: flex-end; }

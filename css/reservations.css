@@ -125,18 +125,20 @@ body.dark .flow-steps span.done { color: var(--flame); }
   grid-template-rows: 22px auto 1fr;
   align-content: start;
   align-items: flex-start;
+  height: 100%;
+  box-sizing: border-box;
   padding: 24px;
 }
 .policy-grid h3 { font-size: 17px; margin: 12px 0 8px; }
 .policy-grid p {
   width: 100%;
-  max-width: none;
+  max-width: 38ch;
   min-height: 4.8em;
   margin: 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.6;
-  text-wrap: normal;
+  text-wrap: pretty;
   overflow-wrap: break-word;
 }
 .policy-grid svg { width: 22px; height: 22px; color: var(--ember); }

@@ -64,14 +64,14 @@ function buildHeader() {
     <nav class="links" id="navLinks" aria-label="Primary">
       ${PAGES.map(([p, l]) => `<a class="${path === p ? 'active' : ''}" href="${p}">${l}</a>`).join('')}
       <div class="mobile-menu-actions">
-        <a class="mobile-login" href="login.html">Login</a>
+        <a class="btn btn-outline-light btn-sm mobile-login" href="login.html">Login</a>
         <a class="btn btn-primary btn-sm" href="dashboard.html">My Table</a>
         <button class="lang-pill mobile-rtl-toggle" aria-label="Toggle RTL/LTR" title="Toggle RTL layout"><span>RTL</span></button>
         <button class="icon-btn mobile-theme-toggle" aria-label="Toggle theme">${I.sun}</button>
       </div>
     </nav>
     <div class="actions">
-      <a class="login-link" href="login.html">Login</a>
+      <a class="btn btn-outline-light btn-sm login-link" href="login.html">Login</a>
       <a class="btn btn-primary btn-sm" href="dashboard.html">My Table</a>
       <button class="lang-pill" id="rtlBtn" aria-label="Toggle RTL/LTR" title="Toggle RTL layout"><span>RTL</span></button>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">${I.sun}</button>
